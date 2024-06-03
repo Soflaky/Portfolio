@@ -13,6 +13,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 project.classList.add('expanded');
                 projectDetails.style.display = 'block';
             }
+
+            
+        });
+    });
+
+    expandButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            const project2 = event.target.closest('.project2');
+            const projectDetails2 = project2.querySelector('.project-details2');
+
+            if (project2.classList.contains('expanded')) {
+                project2.classList.remove('expanded');
+                projectDetails2.style.display = 'none';
+            } else {
+                project2.classList.add('expanded');
+                projectDetails2.style.display = 'block';
+            }
+
+            
         });
     });
 });
