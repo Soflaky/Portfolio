@@ -11,15 +11,15 @@
         <nav>
             <a href="index.html" class="site-title">SOFLAKY</a>
             <ul>
-                <li><a href="index.html">Home</a></li>
+                <li><a href="#home">Home</a></li>
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="writeups.html">Writeups</a></li>
-                <li><a href="contact.html" class="contact-btn">Contact Me</a></li>
+                <li><a href="#contact" class="contact-btn">Contact Me</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <section class="hero">
+        <section id="hero" class="hero">
             <div class="profile-container">
                 <img src="img/myLogo.jpg" alt="Profile Picture" class="profile-pic">
             </div>
@@ -27,9 +27,32 @@
                 <h1>Hey I'm Mahmoud</h1>
                 <p>I'm a Computer Science Student, CTF Player & I'm very passionate and dedicated to my work and studies</p>
                 <div class="buttons">
+                    <a href="#about" class="btn">About Me</a>
                     <a href="projects.html" class="btn">My Projects</a>
                 </div>
             </div>
+        </section>
+        <section id="about" class="about">
+            <div class="about-content">
+                <div class="about-text">
+                    <p><b>As a first-year computer science student, I'm diving headfirst into my studies with excitement. Alongside my coursework, I'm also an enthusiastic CTF player, always looking for new challenges to tackle. I'm dedicated to both my academics and my passion for technology, striving to excel in both areas.</b></p>
+                    <br>
+                    <br>
+                    <span><b>Skills:</b> C++ | HTML | CSS | JS | SQL | LINUX</span>
+                </div>
+                <div class="about-image">
+                    <img src="img/myLogo.jpg" alt="About Me Picture" class="about-pic">
+                </div>
+            </div>
+        </section>
+        <section id="contact" class="contact">
+            <h2>Contact Me</h2>
+            <form id="contact-form" method="GET" action="mailto:mbuyer7@gmail.com">
+                <input name="name" type="text" class="feedback-input" placeholder="Name" required/>
+                <input name="email" type="email" class="feedback-input" placeholder="Email" required/>
+                <textarea name="message" class="feedback-input" placeholder="Message" required></textarea>
+                <input type="submit" value="SUBMIT"/>
+            </form>
         </section>
         <div class="social-icons">
             <a href="https://github.com/melganzory/" target="_blank">
