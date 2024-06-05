@@ -8,13 +8,23 @@
 </head>
 <body>
     <header>
+        <div class="logo">
+            <a href="index.html" class="site-title">
+                <img src="img/myLogoCropped.png" alt="Logo">
+            </a>
+        </div>
         <nav>
-            <a href="index.html" class="site-title">SOFLAKY</a>
-            <ul>
-                <li><a href="#home">Home</a></li>
+            
+            <div class="menu-btn" id="menu-btn">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul id="nav-links" class="nav-links">
+                <li><a href="index.html">Home</a></li>
                 <li><a href="projects.html">Projects</a></li>
                 <li><a href="writeups.html">Writeups</a></li>
-                <li><a href="#contact" class="contact-btn">Contact Me</a></li>
+                <li><a href="#contact" class="contact-btn">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -46,23 +56,31 @@
             </div>
         </section>
         <section id="contact" class="contact">
-            <h2>Contact Me</h2>
-            <form id="contact-form" method="GET" action="mailto:mbuyer7@gmail.com">
-                <input name="name" type="text" class="feedback-input" placeholder="Name" required/>
-                <input name="email" type="email" class="feedback-input" placeholder="Email" required/>
-                <textarea name="message" class="feedback-input" placeholder="Message" required></textarea>
-                <input type="submit" value="SUBMIT"/>
+            <div class="contact-header">
+                <a href="https://github.com/your-profile" target="_blank" class="social-icon">
+                    <img src="img/github-icon.png" alt="GitHub">
+                </a>
+                <h2>Contact Me</h2>
+                <a href="https://twitter.com/your-profile" target="_blank" class="social-icon">
+                    <img src="img/x-icon.png" alt="Twitter">
+                </a>
+            </div>
+            <form>
+                <input type="text" class="feedback-input" placeholder="Name" required>
+                <input type="email" class="feedback-input" placeholder="Email" required>
+                <textarea class="feedback-input" placeholder="Message" required></textarea>
+                <input type="submit" value="Send">
             </form>
         </section>
-        <div class="social-icons">
-            <a href="https://github.com/melganzory/" target="_blank">
-                <img src="img/github-icon.png" alt="GitHub">
-            </a>
-            <a href="https://twitter.com/TheSoFlaKy/" target="_blank">
-                <img src="img/x-icon.png" alt="X">
-            </a>
-        </div>
     </main>
     <script src="js/scripts.js"></script>
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const navLinks = document.getElementById('nav-links');
+
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>

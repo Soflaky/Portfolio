@@ -9,28 +9,28 @@ body {
 
 /* Header Styles */
 header {
-    padding: 20px 0;
-    position: sticky;
-    border-radius: 15px;
+    padding: 20px;
     top: 0;
     z-index: 1000;
-    background: transparent; /* Remove header background */
+    background: #0c0c0c; /* Remove header background */
+    box-shadow: 0 5px 0 #2a2a2a;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.site-title img {
+    width: 130px; /* Adjust logo size */
+    height: auto;
+}
+.site-title img:hover{
+    transform: scale(1.08);
+
 }
 
 nav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.site-title {
-    font-size: 28px;
-    font-weight: bold;
-    color: #fff;
-    text-decoration: none;
 }
 
 nav ul {
@@ -67,6 +67,20 @@ nav ul li a:hover {
     background: #9E79F2;
 }
 
+/* Responsive Menu Button */
+.menu-btn {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.menu-btn div {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 3px;
+}
 /* Hero Section Styles */
 .hero {
     display: flex;
@@ -89,6 +103,9 @@ nav ul li a:hover {
     border-radius: 50%;
     object-fit: cover;
     border: 5px solid #FFC600;
+}
+.profile-pic:hover {
+    transform: scale(1.1);
 }
 
 .intro {
@@ -142,13 +159,14 @@ nav ul li a:hover {
     flex: 2;
     padding-left: 80px;
     font-size: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 200px;
 }
 
 .about-image {
     flex: 1;
     display: flex;
     justify-content: center;
+    margin-bottom: 200px;
 }
 
 .about-pic {
@@ -157,6 +175,10 @@ nav ul li a:hover {
     border-radius: 50%;
     object-fit: cover;
     border: 5px solid #5d02e5;
+}
+.about-pic:hover {
+    transform: scale(1.1);
+
 }
 
 .about-text h2 {
@@ -167,6 +189,7 @@ nav ul li a:hover {
 .about-text p {
     font-size: 25px;
 }
+
 .about-text span {
     font-size: 15px;
 }
@@ -174,14 +197,35 @@ nav ul li a:hover {
 /* Contact Section Styles */
 .contact {
     background: #0c0c0c;
-    padding: 400px 50px;
-    padding-bottom: 100px;
+    padding: 100px 50px;
     text-align: center;
+    position: relative;
 }
 
-.contact h2 {
+.contact-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin-bottom: 20px;
+}
+
+.contact-header h2 {
+    margin: 0 20px;
     font-size: 36px;
+}
+
+.social-icon {
+    width: 50px; /* Adjust to the size of your icons */
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.social-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 form {
@@ -238,12 +282,10 @@ textarea {
 
 /* Social Icons Styles */
 .social-icons {
-    position: fixed;
-    top: 250px;
-    right: 10px;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 0px;
 }
 
 .social-icons a {
@@ -265,8 +307,6 @@ textarea {
 html {
     scroll-behavior: smooth;
 }
-
-
 
 /* Content Section Styles */
 .projects-section,
@@ -360,10 +400,164 @@ footer {
 }
 
 @media (max-width: 768px) {
+    .hero {
+        flex-direction: column;
+        padding: 50px 20px;
+        padding-bottom: 200px;
+    }
+
+    .intro {
+        max-width: 100%;
+        margin-right: 0;
+        text-align: center;
+    }
+
+    .profile-pic {
+        width: 230px;
+        height: 230px;
+    }
+    .buttons{
+        padding-left: 28%;
+        }
+    .intro h1 {
+        font-size: 34px;
+    }
+
+    .intro p {
+        font-size: 16px;
+    }
+
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-text {
+        padding-left: 0;
+        margin-bottom: 20px;
+    }
+
+    .about-pic {
+        width: 250px;
+        height: 250px;
+        margin-bottom: 20px;
+    }
+
     .project, .project2 {
         flex: 1 1 100%; /* One project per row */
         max-width: 100%;
     }
 }
 
-/* Contact Form Styles */
+@media (max-width: 480px) {
+    header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .site-title {
+        font-size: 20px;
+        text-align: left;
+    }
+    .nav-links {
+        justify-content: start;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        top: 80px;
+        right: 0;
+        background: #0c0c0c;
+        width: 150px;
+        height: 100%;
+        padding-top: 50px;
+        gap: 40px;
+    }
+    .menu-btn {
+        display: block;
+    }
+    header {
+        padding: 10px 20px;
+    }
+    .nav-links li {
+        width: 100%;
+    }
+
+    .nav-links li a,
+    .nav-links li a:hover {
+        padding: 30px;
+        font-size: 18px;
+    }
+    
+    .contact-btn, 
+    .contact-btn:hover {
+        background-color: transparent;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+        gap: 10px;
+    }
+
+    nav ul.active {
+        display: flex;
+    }
+
+    .menu-btn {
+        display: flex;
+    }
+
+    .intro h1 {
+        font-size: 28px;
+    }
+
+    .intro p, .about-text p, .about-text span {
+        font-size: 16px;
+    }
+
+    .profile-pic, .about-pic {
+        width: 200px;
+        height: 200px;
+    }
+
+    .buttons {
+        flex-direction: column;
+        gap: 10px;
+        padding-left: 0%;
+            
+    }
+
+    .btn {
+        padding: 10px 20px;
+    }
+
+    .project, .project2 {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .contact h2, .about-text h2, .projects-section h1, .writeups-section h1, .content h1 {
+        font-size: 28px;
+    }
+
+    .feedback-input {
+        font-size: 16px;
+    }
+
+    [type="submit"] {
+        font-size: 20px;
+    }
+
+    .social-icons {
+        top: 200px;
+        right: 5px;
+    }
+
+    .social-icons a {
+        width: 40px;
+        height: 40px;
+    }
+}
