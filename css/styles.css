@@ -52,7 +52,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    background: #555;
+    background: #7D5DE6;
 }
 
 .contact-btn {
@@ -309,7 +309,7 @@ html {
 }
 
 /* Content Section Styles */
-.projects-section,
+
 .writeups-section,
 .content {
     max-width: 1200px;
@@ -320,69 +320,13 @@ html {
     border-radius: 10px;
 }
 
-.projects-section h1,
+
 .writeups-section h1,
 .content h1 {
     font-size: 32px;
     margin-bottom: 20px;
 }
 
-/* Project Styles */
-.projects-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center; /* Center align the projects */
-    gap: 20px;
-}
-
-.project, .project2 {
-    background: #2a2a2a;
-    padding: 15px;
-    margin: 20px 0;
-    border-radius: 10px;
-    transition: transform 0.3s;
-    flex: 1 1 calc(33.333% - 40px); /* Flex basis for 3 projects per row with gap */
-    max-width: calc(33.333% - 40px); /* Max width to match flex basis */
-}
-
-.project:hover, .project2:hover {
-    transform: scale(1.05);
-}
-
-.project img, .project2 img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-.project h2, .project2 h2 {
-    margin: 10px 0;
-}
-
-.project p, .project2 p {
-    margin: 10px 0;
-}
-
-.project .expand-btn, .project2 .expand-btn {
-    background: #7D5DE6;
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 20px;
-    text-decoration: none;
-    transition: background 0.3s;
-}
-
-.project .expand-btn:hover, .project2 .expand-btn:hover {
-    background: #333;
-}
-
-.project .project-details, .project2 .project-details2 {
-    display: none;
-    margin-top: 10px;
-}
-
-.project.expanded .project-details, .project2.expanded .project-details2 {
-    display: block;
-}
 
 /* Footer Styles */
 footer {
