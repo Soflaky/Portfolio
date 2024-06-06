@@ -1,1 +1,1 @@
-This is my portfolio site which will include my projects and maybe ctf writeups
+This is my basic portfolio site which will include my info and writeups
