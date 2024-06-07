@@ -127,6 +127,7 @@ nav ul li a:hover {
 .buttons {
     display: flex;
     gap: 20px;
+    padding-bottom: 100px;
 }
 
 .btn {
@@ -164,6 +165,7 @@ nav ul li a:hover {
 }
 
 .about-image {
+    padding-top: 100px;
     flex: 1;
     display: flex;
     justify-content: center;
@@ -400,7 +402,10 @@ footer {
         justify-content: space-between;
         align-items: center;
     }
-
+    .about-image{
+        padding-top: 0px;
+        padding-bottom: 200px;
+    }
     .site-title {
         font-size: 20px;
         text-align: left;
