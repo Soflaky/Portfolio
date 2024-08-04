@@ -140,21 +140,22 @@
                 hexString += bytes[i].toString(16).padStart(2, '0').toUpperCase();
             }
 
-            for (const [signature, fileType] of Object.entries(signatures)) {
+           for (const [signature, fileType] of Object.entries(signatures)) {
                 if (hexString.startsWith(signature)) {
                     return fileType;
                 }
             }
-            
 
-            return 'Unknown file type'; }
-            const menuBtn = document.getElementById('menu-btn');
+            return 'Unknown file type';
+        }
+    </script>
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
         const navLinks = document.getElementById('nav-links');
 
         menuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
-        }
     </script>
 </body>
 </html>
