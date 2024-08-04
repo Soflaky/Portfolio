@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #0c0c0c;
+            color: #fff;
+        }
+
+      
+
+        .projects-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 80px); /* Full height minus header */
+        }
+
+        .project-box {
+            width: 300px;
+            height: 300px;
+            margin: 20px;
+            background: #1c1c1c;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-box:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(125, 93, 230, 0.5);
+        }
+
+        .project-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #7D5DE6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html" class="site-title">
+                <img src="img/myLogoCropped.png" alt="Logo">
+            </a>
+        </div>
+        <nav>
+            <ul id="nav-links" class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="projects-section">
+        <div class="project-box" onclick="window.location.href='file-type-detection.html'">
+            <div class="project-title">File Type Detection</div>
+        </div>
+        <div class="project-box" onclick="window.location.href='encryption-decryption.html'">
+            <div class="project-title">Encryption & Decryption</div>
+        </div>
+    </section>
+</body>
+</html>
