@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encryption & Decryption Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #0c0c0c;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #1c1c1c;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 36px;
+            color: #7D5DE6;
+            margin-bottom: 20px;
+        }
+
+        textarea, input, button, select {
+            width: 98%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 2px solid #7D5DE6;
+            background: transparent;
+            color: #fff;
+        }
+
+        button {
+            cursor: pointer;
+            background: #7D5DE6;
+            border: none;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #9E79F2;
+        }
+    </style>
+</head>
+<body>
+   <header>
+        <div class="logo">
+            <a href="index.html" class="site-title">
+                <img src="img/myLogoCropped.png" alt="Logo">
+            </a>
+        </div>
+        <nav>
+            <ul id="nav-links" class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                 <li><a href="projects.html">Projects</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <h1>Data Encryption and Decryption Tool</h1>
+        
+        <label for="inputText">Input Text:</label>
+        <textarea id="inputText" rows="4" placeholder="Enter text"></textarea>
+        
+        <label for="detectedType">Detected Type:</label>
+        <input type="text" id="detectedType" readonly>
+        
+        <button onclick="detectType()">Detect Type</button>
+        
+        <label for="transformation">Transformation:</label>
+        <select id="transformation">
+            <option value="base64">Base64</option>
+            <option value="hex">Hex</option>
+            <option value="hexdump">Hexdump</option>
+            <option value="urlencode">URL Encode</option>
+            <option value="urldecode">URL Decode</option>
+            <option value="entropy">Entropy</option>
+            <option value="fork">Fork</option>
+            <option value="magic">Magic</option>
+            <option value="rot13">ROT13</option>
+        </select>
+        
+        <button onclick="transform('encrypt')">Encrypt</button>
+        <button onclick="transform('decrypt')">Decrypt</button>
+        
+        <label for="outputText">Output Text:</label>
+        <textarea id="outputText" rows="4" readonly placeholder="Output will appear here"></textarea>
+    </div>
+
+    <script>
+        function detectType() {
+            var inputText = document.getElementById("inputText").value;
+            var detectedType = '';
+            
+            if (isBase64(inputText)) {
+                detectedType = 'Base64';
+            } else if (isHex(inputText)) {
+                detectedType = 'Hex';
+            } else if (isHexdump(inputText)) {
+                detectedType = 'Hexdump';
+            } else if (isURL(inputText)) {
+                detectedType = 'URL Encode';
+            } else if (isROT13(inputText)) {
+                detectedType = 'ROT13';
+            } else {
+                detectedType = 'Unknown';
+            }
+            
+            document.getElementById("detectedType").value = detectedType;
+        }
+
+        function transform(action) {
+            var inputText = document.getElementById("inputText").value;
+            var transformation = document.getElementById("transformation").value;
+            var outputText = '';
+
+            if (action === 'encrypt') {
+                switch (transformation) {
+                    case 'base64':
+                        outputText = btoa(inputText);
+                        break;
+                    case 'hex':
+                        outputText = stringToHex(inputText);
+                        break;
+                    case 'hexdump':
+                        outputText = stringToHexdump(inputText);
+                        break;
+                    case 'urlencode':
+                        outputText = encodeURIComponent(inputText);
+                        break;
+                    case 'entropy':
+                        outputText = calculateEntropy(inputText).toString();
+                        break;
+                    case 'magic':
+                        outputText = detectMagic(inputText);
+                        break;
+                    case 'fork':
+                        outputText = forkText(inputText);
+                        break;
+                    case 'rot13':
+                        outputText = rot13(inputText);
+                        break;
+                    default:
+                        outputText = inputText;
+                }
+            } else if (action === 'decrypt') {
+                switch (transformation) {
+                    case 'base64':
+                        outputText = atob(inputText);
+                        break;
+                    case 'hex':
+                        outputText = hexToString(inputText);
+                        break;
+                    case 'hexdump':
+                        outputText = hexdumpToString(inputText);
+                        break;
+                    case 'urldecode':
+                        outputText = decodeURIComponent(inputText);
+                        break;
+                    case 'rot13':
+                        outputText = rot13(inputText);
+                        break;
+                    default:
+                        outputText = inputText;
+                }
+            }
+
+            document.getElementById("outputText").value = outputText;
+        }
+
+        function isBase64(str) {
+            try {
+                return btoa(atob(str)) === str;
+            } catch (err) {
+                return false;
+            }
+        }
+
+        function isHex(str) {
+            return /^[0-9a-fA-F]+$/.test(str);
+        }
+
+        function isHexdump(str) {
+            return /^[0-9a-fA-F\s]+$/.test(str);
+        }
+
+        function isURL(str) {
+            try {
+                return decodeURIComponent(str) !== str;
+            } catch (err) {
+                return false;
+            }
+        }
+
+        function isROT13(str) {
+            return /^[a-zA-Z]+$/.test(str);
+        }
+
+        function stringToHex(str) {
+            return Array.from(str).map(c => c.charCodeAt(0).toString(16).padStart(2, '0')).join('');
+        }
+
+        function hexToString(hex) {
+            return hex.match(/.{1,2}/g).map(byte => String.fromCharCode(parseInt(byte, 16))).join('');
+        }
+
+        function stringToHexdump(str) {
+            return Array.from(str).map(c => c.charCodeAt(0).toString(16).padStart(2, '0')).join(' ');
+        }
+
+        function hexdumpToString(hexdump) {
+            return hexdump.split(' ').map(byte => String.fromCharCode(parseInt(byte, 16))).join('');
+        }
+
+        function rot13(str) {
+            return str.replace(/[a-zA-Z]/g, c => 
+                String.fromCharCode((c <= 'Z' ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26)
+            );
+        }
+
+        function calculateEntropy(str) {
+            const len = str.length;
+            const frequencies = Array.from(str).reduce((acc, char) => {
+                acc[char] = (acc[char] || 0) + 1;
+                return acc;
+            }, {});
+
+            return -Object.values(frequencies).reduce((entropy, frequency) => {
+                const p = frequency / len;
+                return entropy + p * Math.log2(p);
+            }, 0);
+        }
+
+        function detectMagic(str) {
+            const magicNumbers = {
+                '%PDF': 'PDF',
+                'GIF89a': 'GIF',
+                '\u001F\u008B': 'GZIP',
+                'ID3': 'MP3',
+                '\u0000\u0000\u0000\x18ftyp3gp': '3GPP'
+            };
+
+            for (let key in magicNumbers) {
+                if (str.startsWith(key)) {
+                    return magicNumbers[key];
+                }
+            }
+
+            return 'Unknown';
+        }
+
+        function forkText(str) {
+            return str.split('').map(char => String.fromCharCode(char.charCodeAt(0) ^ 42)).join('');
+        }
+    </script>
+</body>
+</html>
