@@ -3,10 +3,39 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background: #0c0c0c; /* Dark gradient background */
+    background: #0c0c0c; /* Dark background by default */
     color: #fff;
 }
 
+/* Light Mode Styles 
+body.light-mode {
+    background: #fff;
+    color: #000;
+}
+
+header {
+    background: #0c0c0c; /* Dark background by default 
+}
+
+body.light-mode header {
+    background: #fff;
+}
+
+/* Theme Toggle Button 
+.theme-toggle {
+    background: #7D5DE6;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.theme-toggle:hover {
+    background: #9E79F2;
+}
+*/
 /* Header Styles */
 header {
     padding: 20px;
