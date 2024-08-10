@@ -26,68 +26,68 @@
             document.body.classList.toggle('light-mode');
         });
     }); */  // theme related script
-const imageInput = document.getElementById('imageInput');
-const textInput = document.getElementById('textInput');
-const canvas = document.getElementById('canvas');
-const outputImage = document.getElementById('outputImage');
-const decodedText = document.getElementById('decodedText');
+document.getElementById('hideButton').addEventListener('click', function() {
+    const imageInput = document.getElementById('imageInput');
+    const textInput = document.getElementById('textInput').value;
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
 
-imageInput.addEventListener('change', () => {
     const file = imageInput.files[0];
     const reader = new FileReader();
-
-    reader.onload = (event) => {
+    
+    reader.onload = function(event) {
         const img = new Image();
-        img.src = event.target.result;
-        img.onload = () => {
+        img.onload = function() {
             canvas.width = img.width;
             canvas.height = img.height;
-            const ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0);
-        }
-    }
+
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+
+            for (let i = 0; i < textInput.length; i++) {
+                data[i * 4] = textInput.charCodeAt(i);
+            }
+
+            ctx.putImageData(imageData, 0, 0);
+
+            const link = document.createElement('a');
+            link.download = 'image_with_hidden_text.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        };
+        img.src = event.target.result;
+    };
     reader.readAsDataURL(file);
 });
 
-function encodeText() {
+document.getElementById('extractButton').addEventListener('click', function() {
+    const imageInput = document.getElementById('imageInput');
+    const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const data = imgData.data;
 
-    const text = textInput.value + '\0'; // Add a null character to mark the end of the text
-    for (let i = 0; i < text.length * 4; i += 4) {
-        const charCode = text.charCodeAt(i / 4);
-        data[i] = (data[i] & 0xFC) | (charCode >> 6);
-        data[i + 1] = (data[i + 1] & 0xFC) | ((charCode >> 4) & 0x03);
-        data[i + 2] = (data[i + 2] & 0xFC) | ((charCode >> 2) & 0x03);
-        data[i + 3] = (data[i + 3] & 0xFC) | (charCode & 0x03);
-    }
-
-    ctx.putImageData(imgData, 0, 0);
-    outputImage.src = canvas.toDataURL();
-}
-
-function downloadImage() {
-    const link = document.createElement('a');
-    link.download = 'stego-image.png';
-    link.href = canvas.toDataURL();
-    link.click();
-}
-
-function decodeText() {
-    const ctx = canvas.getContext('2d');
-    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    const data = imgData.data;
-
-    let decoded = '';
-    for (let i = 0; i < data.length; i += 4) {
-        const charCode = ((data[i] & 0x03) << 6) |
-                         ((data[i + 1] & 0x03) << 4) |
-                         ((data[i + 2] & 0x03) << 2) |
-                         (data[i + 3] & 0x03);
-        if (charCode === 0) break; // Stop at null character
-        decoded += String.fromCharCode(charCode);
-    }
+    const file = imageInput.files[0];
+    const reader = new FileReader();
     
-    decodedText.textContent = decoded;
-}
+    reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const data = imageData.data;
+
+            let extractedText = '';
+            for (let i = 0; i < data.length; i += 4) {
+                if (data[i] === 0) break;
+                extractedText += String.fromCharCode(data[i]);
+            }
+
+            alert('Extracted Text: ' + extractedText);
+        };
+        img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+});
