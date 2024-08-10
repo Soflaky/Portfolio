@@ -3,83 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steganography Tool</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
+    <title>Text Steganography Tool</title>
     <style>
-       
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1c1c1c;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
         .container {
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    width: 400px;
-}
+            width: 300px;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
 
-h1 {
-    color: #333333;
-    margin-bottom: 20px;
-}
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
 
-.input-container {
-    margin: 15px 0;
-}
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+        }
 
-textarea {
-    width: 100%;
-    height: 100px;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #cccccc;
-    resize: none;
-    font-size: 16px;
-}
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-.button-container {
-    margin-top: 20px;
-}
+        button:hover {
+            background-color: #45a049;
+        }
 
-.button {
-    padding: 10px 20px;
-    margin: 10px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    color: white;
-}
-
-.encode-button {
-    background-color: #4CAF50;
-}
-
-.download-button {
-    background-color: #2196F3;
-}
-
-.decode-button {
-    background-color: #FF5722;
-}
-
-button:hover {
-    opacity: 0.8;
-}
-
-#outputImage {
-    margin-top: 20px;
-    max-width: 100%;
-    border-radius: 10px;
-}
-
-#decodedText {
-    margin-top: 20px;
-    font-size: 18px;
-    color: #333333;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-}
+        #result {
+            margin-top: 20px;
+            word-wrap: break-word;
+        }
     </style>
+</head>
 <body>
      <header>
         <div class="logo">
@@ -101,21 +79,12 @@ button:hover {
         </nav>
     </header>
     <div class="container">
-        <h1>Steganography Tool</h1>
-        <input type="file" id="imageInput" accept="image/*">
-        <div class="input-container">
-            <textarea id="textInput" placeholder="Enter your text here..."></textarea>
-        </div>
-        <div class="button-container">
-            <button class="button encode-button" onclick="encodeText()">Encode Text</button>
-            <button class="button download-button" onclick="downloadImage()">Download Image</button>
-        </div>
-        <canvas id="canvas" style="display:none;"></canvas>
-        <img id="outputImage" alt="Stego Image">
-        <div class="button-container">
-            <button class="button decode-button" onclick="decodeText()">Decode Text</button>
-        </div>
-        <p id="decodedText"></p>
+        <h1>Text Steganography</h1>
+        <textarea id="inputText" placeholder="Enter text to hide"></textarea>
+        <textarea id="coverText" placeholder="Enter cover text"></textarea>
+        <button onclick="hideText()">Hide Text</button>
+        <button onclick="extractText()">Extract Text</button>
+        <div id="result"></div>
     </div>
     <script src="js/script.js"></script>
 </body>
