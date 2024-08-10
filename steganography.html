@@ -4,17 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Steganography Tool</title>
-       <link rel="stylesheet" href="css/styles.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background: #0c0c0c;
-            color: #fff;
+            background: #fff;
+            color: #333;
         }
 
-       
+        header {
+            background-color: #1c1c1c;
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            vertical-align: middle;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .menu-btn {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .menu-btn div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 4px;
+            transition: 0.3s;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .nav-links li {
+            margin: 0 10px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: #7D5DE6;
+            border-radius: 5px;
+        }
 
         .container {
             display: flex;
@@ -26,7 +79,7 @@
         .section {
             width: 90%;
             max-width: 600px;
-            background-color: #333;
+            background-color: #f7f7f7;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -95,16 +148,41 @@
         a:hover {
             text-decoration: underline;
         }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 0;
+                background-color: #1c1c1c;
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .nav-links li {
+                margin: 0;
+                border-bottom: 1px solid #333;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
-         <div class="logo">
+        <div class="logo">
             <a href="index.html" class="site-title">
                 <img src="img/myLogoCropped.png" alt="Logo">
             </a>
         </div>
-       <nav>
+        <nav>
             <div class="menu-btn" id="menu-btn">
                 <div></div>
                 <div></div>
@@ -156,6 +234,10 @@
             document.getElementById(tabId).classList.add('active');
             document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
         }
+
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            document.getElementById('nav-links').classList.toggle('active');
+        });
 
         function hideImage() {
             const coverImageInput = document.getElementById('coverImage');
