@@ -3,238 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Steganography Tool</title>
+    <title>Steganography Tool</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-    <style>
-        .container {
-    padding: 20px;
-    max-width: 900px;
-    margin: auto;
-}
-
-.tabs {
-    display: flex;
-    cursor: pointer;
-    margin-bottom: 20px;
-}
-
-.tab {
-    padding: 10px 20px;
-    border: 1px solid #ddd;
-    margin-right: 5px;
-    background-color: #f5f5f5;
-    transition: background-color 0.3s;
-}
-
-.tab.active, .tab:hover {
-    background-color: #ddd;
-}
-
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-button {
-    padding: 10px 20px;
-    margin-top: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-canvas {
-    display: block;
-    margin-top: 20px;
-    max-width: 100%;
-}
-    </style>
 <body>
-    <header>
-        <div class="logo">
-            <a href="index.html" class="site-title">
-                <img src="img/myLogoCropped.png" alt="Logo">
-            </a>
-        </div>
-        <nav>
-            <div class="menu-btn" id="menu-btn">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <ul id="nav-links" class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="projects.html">Projects</a></li>
-                <li><a href="writeups.html">Writeups</a></li>
-            </ul>
-        </nav>
-    </header>
     <div class="container">
-        <div class="section">
-            <div class="tabs">
-                <div class="tab active" onclick="showTab('hide')">Hide an Image</div>
-                <div class="tab" onclick="showTab('extract')">Extract an Image</div>
-            </div>
-
-            <div id="hide" class="tab-content active">
-                <h2>Hide an Image</h2>
-                <input type="file" id="coverImage" accept="image/*">
-                <input type="file" id="secretImage" accept="image/*">
-                <input type="password" id="encryptionKey" placeholder="Encryption Key (optional)">
-                <button onclick="hideImage()">Hide Image</button>
-                <canvas id="resultCanvas" class="canvas"></canvas>
-                <a id="downloadLink" download="stego.png" style="display:none;">Download Stego Image</a>
-            </div>
-
-            <div id="extract" class="tab-content">
-                <h2>Extract an Image</h2>
-                <input type="file" id="stegoImage" accept="image/*">
-                <input type="password" id="decryptionKey" placeholder="Decryption Key (if used)">
-                <button onclick="extractImage()">Extract Image</button>
-                <canvas id="extractedCanvas" class="canvas"></canvas>
-            </div>
+        <h1>Steganography Tool</h1>
+        <input type="file" id="imageInput" accept="image/*">
+        <div class="input-container">
+            <textarea id="textInput" placeholder="Enter your text here..."></textarea>
         </div>
+        <div class="button-container">
+            <button class="button encode-button" onclick="encodeText()">Encode Text</button>
+            <button class="button download-button" onclick="downloadImage()">Download Image</button>
+        </div>
+        <canvas id="canvas" style="display:none;"></canvas>
+        <img id="outputImage" alt="Stego Image">
+        <div class="button-container">
+            <button class="button decode-button" onclick="decodeText()">Decode Text</button>
+        </div>
+        <p id="decodedText"></p>
     </div>
-    <script>
-        function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            document.getElementById(tabId).classList.add('active');
-            document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
-        }
-
-        document.getElementById('menu-btn').addEventListener('click', function() {
-            document.getElementById('nav-links').classList.toggle('active');
-        });
-
-        function hideImage() {
-            const coverImageInput = document.getElementById('coverImage');
-            const secretImageInput = document.getElementById('secretImage');
-            const encryptionKey = document.getElementById('encryptionKey').value;
-
-            if (!coverImageInput.files[0] || !secretImageInput.files[0]) {
-                alert('Please select both cover and secret images.');
-                return;
-            }
-
-            const coverImage = new Image();
-            coverImage.src = URL.createObjectURL(coverImageInput.files[0]);
-
-            coverImage.onload = () => {
-                const secretImage = new Image();
-                secretImage.src = URL.createObjectURL(secretImageInput.files[0]);
-
-                secretImage.onload = () => {
-                    const canvas = document.getElementById('resultCanvas');
-                    const ctx = canvas.getContext('2d');
-                    canvas.width = coverImage.width;
-                    canvas.height = coverImage.height;
-
-                    ctx.drawImage(coverImage, 0, 0);
-                    const coverData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(secretImage, 0, 0, canvas.width, canvas.height);
-                    const secretData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-                    if (encryptionKey) {
-                        secretData.data.set(encrypt(secretData.data, encryptionKey));
-                    }
-
-                    const encodedData = encodeImageData(coverData.data, secretData.data);
-                    coverData.data.set(encodedData);
-                    ctx.putImageData(coverData, 0, 0);
-
-                    const downloadLink = document.getElementById('downloadLink');
-                    downloadLink.href = canvas.toDataURL();
-                    downloadLink.style.display = 'block';
-                };
-            };
-        }
-
-        function extractImage() {
-            const stegoImageInput = document.getElementById('stegoImage');
-            const decryptionKey = document.getElementById('decryptionKey').value;
-
-            if (!stegoImageInput.files[0]) {
-                alert('Please select a stego image.');
-                return;
-            }
-
-            const stegoImage = new Image();
-            stegoImage.src = URL.createObjectURL(stegoImageInput.files[0]);
-
-            stegoImage.onload = () => {
-                const canvas = document.getElementById('extractedCanvas');
-                const ctx = canvas.getContext('2d');
-                canvas.width = stegoImage.width;
-                canvas.height = stegoImage.height;
-
-                ctx.drawImage(stegoImage, 0, 0);
-                const stegoData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-
-                const decodedData = decodeImageData(stegoData.data);
-
-                if (decryptionKey) {
-                    decodedData.set(decrypt(decodedData, decryptionKey));
-                }
-
-                const secretCanvas = document.getElementById('extractedCanvas');
-                const secretCtx = secretCanvas.getContext('2d');
-                const secretImageData = secretCtx.createImageData(canvas.width, canvas.height);
-                secretImageData.data.set(decodedData);
-                secretCtx.putImageData(secretImageData, 0, 0);
-            };
-        }
-
-        function encodeImageData(coverData, secretData) {
-            const encodedData = new Uint8ClampedArray(coverData.length);
-            for (let i = 0; i < coverData.length; i += 4) {
-                encodedData[i] = (coverData[i] & 0xFE) | (secretData[i] >> 7);
-                encodedData[i + 1] = (coverData[i + 1] & 0xFE) | ((secretData[i] >> 6) & 1);
-                encodedData[i + 2] = (coverData[i + 2] & 0xFE) | ((secretData[i] >> 5) & 1);
-                encodedData[i + 3] = coverData[i + 3]; // alpha remains unchanged
-            }
-            return encodedData;
-        }
-
-        function decodeImageData(stegoData) {
-            const decodedData = new Uint8ClampedArray(stegoData.length);
-            for (let i = 0; i < stegoData.length; i += 4) {
-                decodedData[i] = ((stegoData[i] & 1) << 7) |
-                                 ((stegoData[i + 1] & 1) << 6) |
-                                 ((stegoData[i + 2] & 1) << 5);
-                decodedData[i + 3] = 255; // fully opaque
-            }
-            return decodedData;
-        }
-
-        function encrypt(data, key) {
-            const encryptedData = new Uint8ClampedArray(data.length);
-            for (let i = 0; i < data.length; i++) {
-                encryptedData[i] = data[i] ^ key.charCodeAt(i % key.length);
-            }
-            return encryptedData;
-        }
-
-        function decrypt(data, key) {
-            return encrypt(data, key); // XOR encryption is symmetric
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
