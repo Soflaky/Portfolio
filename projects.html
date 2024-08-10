@@ -14,10 +14,9 @@
             color: #fff;
         }
 
-      
-
         .projects-section {
             display: flex;
+            flex-wrap: wrap; /* Allow wrapping of the project boxes */
             justify-content: center;
             align-items: center;
             height: calc(100vh - 80px); /* Full height minus header */
@@ -46,6 +45,20 @@
             font-size: 24px;
             font-weight: bold;
             color: #7D5DE6;
+        }
+
+        /* Media query for mobile screens */
+        @media (max-width: 768px) {
+            .project-box {
+                width: calc(50% - 40px); /* Adjust width to 50% minus the margins */
+            }
+        }
+
+        /* Media query for very small screens */
+        @media (max-width: 480px) {
+            .project-box {
+                width: calc(100% - 40px); /* Full width minus the margins for single column layout */
+            }
         }
     </style>
 </head>
