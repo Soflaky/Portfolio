@@ -1,100 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/styles.css">
     <title>Steganography Tool</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background: #0c0c0c; /* Dark gradient background */
+            background: #0c0c0c;
             color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            flex-direction: column;
         }
 
-        .tool-container {
+        .tool-section {
             text-align: center;
-            background: transparent;
-            border-radius: 8px;
             padding: 20px;
+            border: 2px solid #7D5DE6;
+            border-radius: 10px;
+            background: #0c0c0c;
+            color: #fff;
+            max-width: 500px;
+            width: 100%;
         }
 
         h1 {
-            font-size: 36px;
+            font-size: 28px;
             margin-bottom: 20px;
         }
 
-        textarea {
+        input[type="file"],
+        button,
+        select {
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #7D5DE6;
+            border-radius: 5px;
+            background: transparent;
+            color: #fff;
             width: 100%;
-            height: 100px;
-            margin-bottom: 20px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 2px solid #7D5DE6;
-            background: transparent;
-            color: #fff;
-        }
-
-        input[type="file"] {
-            margin: 20px 0;
-            padding: 10px;
-            border: 2px solid #7D5DE6;
-            border-radius: 5px;
-            background: transparent;
-            color: #fff;
-        }
-
-        input[type="file"]::file-selector-button {
-            background: #7D5DE6;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
+            max-width: 300px;
             cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        input[type="file"]::file-selector-button:hover {
-            background: #9E79F2;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
         }
 
         button {
             background: #7D5DE6;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
         }
 
         button:hover {
             background: #9E79F2;
         }
 
-        #outputImage {
-            display: block;
-            margin: 20px auto;
-            max-width: 100%;
-            border-radius: 5px;
+        #downloadBtn {
+            display: none;
+            margin-top: 20px;
         }
-
     </style>
 </head>
-<body>
 
+<body>
     <header>
         <div class="logo">
             <a href="index.html" class="site-title">
@@ -115,103 +86,79 @@
         </nav>
     </header>
 
-    <div class="tool-container">
+    <section class="tool-section">
         <h1>Steganography Tool</h1>
-        <textarea id="textInput" placeholder="Enter text to hide..."></textarea>
-        <input type="file" id="fileInput">
-        <div class="button-container">
-            <button id="hideTextButton">Hide Text</button>
-            <button id="extractTextButton">Extract Text</button>
-        </div>
-        <canvas id="canvas" style="display:none;"></canvas>
-        <img id="outputImage" alt="Steganography Output">
-        <button id="downloadButton">Download Image</button>
-    </div>
- <script>
-        const menuBtn = document.getElementById('menu-btn');
-        const navLinks = document.getElementById('nav-links');
+        <input type="file" id="imageInput" accept="image/png, image/jpeg">
+        <input type="text" id="textInput" placeholder="Enter text to hide">
+        <select id="operation">
+            <option value="hide">Hide Text</option>
+            <option value="extract">Extract Text</option>
+        </select>
+        <button onclick="processImage()">Process</button>
+        <a id="downloadBtn" download="stego_image.png">Download Image</a>
+    </section>
 
-        menuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-     
-        document.getElementById('hideTextButton').addEventListener('click', function() {
+    <script>
+        function processImage() {
+            const imageInput = document.getElementById('imageInput');
             const textInput = document.getElementById('textInput').value;
-            const fileInput = document.getElementById('fileInput').files[0];
+            const operation = document.getElementById('operation').value;
 
-            if (textInput && fileInput) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const img = new Image();
-                    img.onload = function() {
-                        const canvas = document.getElementById('canvas');
-                        const ctx = canvas.getContext('2d');
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        ctx.drawImage(img, 0, 0);
+            const file = imageInput.files[0];
+            if (!file) {
+                alert("Please upload an image.");
+                return;
+            }
 
-                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                        const pixels = imageData.data;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = new Image();
+                img.src = e.target.result;
 
+                img.onload = function () {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+
+                    if (operation === 'hide') {
+                        // Hiding text in the image
                         for (let i = 0; i < textInput.length; i++) {
-                            const charCode = textInput.charCodeAt(i);
-                            pixels[i * 4] = charCode;
+                            const char = textInput.charCodeAt(i);
+                            const x = i % img.width;
+                            const y = Math.floor(i / img.width);
+                            const pixel = ctx.getImageData(x, y, 1, 1);
+                            pixel.data[0] = (pixel.data[0] & 0xFE) | (char >> 7); // Red channel
+                            pixel.data[1] = (pixel.data[1] & 0xFE) | ((char >> 6) & 1); // Green channel
+                            pixel.data[2] = (pixel.data[2] & 0xFE) | ((char >> 5) & 1); // Blue channel
+                            ctx.putImageData(pixel, x, y);
                         }
 
-                        ctx.putImageData(imageData, 0, 0);
-                        const outputImage = document.getElementById('outputImage');
-                        outputImage.src = canvas.toDataURL();
-                        document.getElementById('downloadButton').style.display = 'block';
-                    };
-                    img.src = event.target.result;
-                };
-                reader.readAsDataURL(fileInput);
-            } else {
-                alert("Please enter text and choose an image.");
-            }
-        });
-
-        document.getElementById('extractTextButton').addEventListener('click', function() {
-            const fileInput = document.getElementById('fileInput').files[0];
-
-            if (fileInput) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const img = new Image();
-                    img.onload = function() {
-                        const canvas = document.getElementById('canvas');
-                        const ctx = canvas.getContext('2d');
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        ctx.drawImage(img, 0, 0);
-
-                        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                        const pixels = imageData.data;
+                        const downloadBtn = document.getElementById('downloadBtn');
+                        downloadBtn.href = canvas.toDataURL('image/png');
+                        downloadBtn.style.display = 'block';
+                    } else if (operation === 'extract') {
+                        // Extracting text from the image
                         let extractedText = '';
-
-                        for (let i = 0; i < pixels.length; i += 4) {
-                            if (pixels[i] === 0) break;
-                            extractedText += String.fromCharCode(pixels[i]);
+                        for (let i = 0; i < img.width * img.height; i++) {
+                            const x = i % img.width;
+                            const y = Math.floor(i / img.width);
+                            const pixel = ctx.getImageData(x, y, 1, 1);
+                            const charCode =
+                                ((pixel.data[0] & 1) << 7) |
+                                ((pixel.data[1] & 1) << 6) |
+                                ((pixel.data[2] & 1) << 5);
+                            if (charCode === 0) break;
+                            extractedText += String.fromCharCode(charCode);
                         }
-
                         alert("Extracted Text: " + extractedText);
-                    };
-                    img.src = event.target.result;
-                };
-                reader.readAsDataURL(fileInput);
-            } else {
-                alert("Please choose an image.");
-            }
-        });
-
-        document.getElementById('downloadButton').addEventListener('click', function() {
-            const canvas = document.getElementById('canvas');
-            const link = document.createElement('a');
-            link.href = canvas.toDataURL();
-            link.download = 'steganography.png';
-            link.click();
-        });
+                    }
+                }
+            };
+            reader.readAsDataURL(file);
+        }
     </script>
-    <script src="js/scripts.js"></script>
 </body>
+
 </html>
