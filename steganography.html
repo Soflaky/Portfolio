@@ -4,11 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <title>Steganography Tool</title>
     <style>
-        
-    body {
+        body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
@@ -16,37 +15,50 @@
             color: #fff;
         }
 
-       
-
         .tool-section {
-           max-width: 700px;
+            max-width: 700px;
             margin: 50px auto;
-            padding: 20px;
+            padding: 30px;
             background: #1c1c1c;
             border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             font-size: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #7D5DE6;
+        }
+
+        .input-group {
             margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
         }
 
         input[type="file"],
         input[type="text"],
-        button,
-        select {
-            padding: 10px;
-            margin: 10px 0;
+        select,
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
             border: 2px solid #7D5DE6;
             border-radius: 5px;
             background: transparent;
             color: #fff;
-            width: 100%;
-            max-width: 300px;
-            cursor: pointer;
+            font-size: 16px;
         }
 
         button {
             background: #7D5DE6;
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
 
         button:hover {
@@ -56,11 +68,22 @@
         #downloadBtn {
             display: none;
             margin-top: 20px;
+            text-align: center;
+            padding: 12px;
+            background: #7D5DE6;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        #downloadBtn:hover {
+            background: #9E79F2;
         }
 
         #output {
             margin-top: 20px;
-            padding: 10px;
+            padding: 15px;
             border: 1px solid #7D5DE6;
             border-radius: 5px;
             background: rgba(125, 93, 230, 0.1);
