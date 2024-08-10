@@ -27,58 +27,78 @@
         });
     }); */  // theme related script
 document.getElementById('hideTextButton').addEventListener('click', function() {
-    const fileInput = document.getElementById('imageInput');
     const textInput = document.getElementById('textInput').value;
-    const resultMessage = document.getElementById('resultMessage');
-    const canvas = document.getElementById('imageCanvas');
-    const ctx = canvas.getContext('2d');
+    const fileInput = document.getElementById('fileInput').files[0];
 
-    if (fileInput.files.length === 0) {
-        resultMessage.textContent = 'Please select an image first.';
-        return;
-    }
+    if (textInput && fileInput) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
 
-    const imageFile = fileInput.files[0];
-    const reader = new FileReader();
-    reader.onload = function(event) {
-        const img = new Image();
-        img.onload = function() {
-            canvas.width = img.width;
-            canvas.height = img.height;
-            ctx.drawImage(img, 0, 0);
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const pixels = imageData.data;
 
-            // Hide the text in the image
-            hideTextInImage(ctx, img.width, img.height, textInput);
+                for (let i = 0; i < textInput.length; i++) {
+                    const charCode = textInput.charCodeAt(i);
+                    pixels[i * 4] = charCode;
+                }
 
-            // Convert canvas to image and download
-            const dataURL = canvas.toDataURL('image/png');
-            const link = document.createElement('a');
-            link.href = dataURL;
-            link.download = 'steganography.png';
-            link.click();
-
-            resultMessage.textContent = 'Text hidden and image downloaded.';
+                ctx.putImageData(imageData, 0, 0);
+                const outputImage = document.getElementById('outputImage');
+                outputImage.src = canvas.toDataURL();
+                document.getElementById('downloadButton').style.display = 'block';
+            };
+            img.src = event.target.result;
         };
-        img.src = event.target.result;
-    };
-    reader.readAsDataURL(imageFile);
+        reader.readAsDataURL(fileInput);
+    } else {
+        alert("Please enter text and choose an image.");
+    }
 });
 
-function hideTextInImage(ctx, width, height, text) {
-    const binaryText = textToBinary(text);
-    const imageData = ctx.getImageData(0, 0, width, height);
-    const data = imageData.data;
+document.getElementById('extractTextButton').addEventListener('click', function() {
+    const fileInput = document.getElementById('fileInput').files[0];
 
-    // Hide the binary text in the least significant bit of each pixel
-    for (let i = 0; i < binaryText.length; i++) {
-        data[i * 4] = (data[i * 4] & 0xFE) | parseInt(binaryText[i]);
+    if (fileInput) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const pixels = imageData.data;
+                let extractedText = '';
+
+                for (let i = 0; i < pixels.length; i += 4) {
+                    if (pixels[i] === 0) break;
+                    extractedText += String.fromCharCode(pixels[i]);
+                }
+
+                alert("Extracted Text: " + extractedText);
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(fileInput);
+    } else {
+        alert("Please choose an image.");
     }
+});
 
-    ctx.putImageData(imageData, 0, 0);
-}
-
-function textToBinary(text) {
-    return text.split('').map(char => {
-        return char.charCodeAt(0).toString(2).padStart(8, '0');
-    }).join('');
-}
+document.getElementById('downloadButton').addEventListener('click', function() {
+    const canvas = document.getElementById('canvas');
+    const link = document.createElement('a');
+    link.href = canvas.toDataURL();
+    link.download = 'steganography.png';
+    link.click();
+});
