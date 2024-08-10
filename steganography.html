@@ -57,6 +57,25 @@
     </style>
 </head>
 <body>
+      <header>
+        <div class="logo">
+            <a href="index.html" class="site-title">
+                <img src="img/myLogoCropped.png" alt="Logo">
+            </a>
+        </div>
+        <nav>
+            <div class="menu-btn" id="menu-btn">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul id="nav-links" class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+            </ul>
+        </nav>
+    </header>
     <div class="container">
         <h2>Steganography Tool</h2>
         <input type="file" id="imageInput" accept="image/*">
@@ -66,5 +85,13 @@
         <canvas id="canvas"></canvas>
     </div>
     <script src="script.js"></script>
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const navLinks = document.getElementById('nav-links');
+
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
 </body>
 </html>
