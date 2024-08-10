@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
     <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #0c0c0c; /* Dark background by default */
+    color: #fff;
+}
         .container {
     background-color: #ffffff;
     padding: 20px;
@@ -80,6 +87,25 @@ button:hover {
 }
     </style>
 <body>
+     <header>
+        <div class="logo">
+            <a href="index.html" class="site-title">
+                <img src="img/myLogoCropped.png" alt="Logo">
+            </a>
+        </div>
+        <nav>
+            <div class="menu-btn" id="menu-btn">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul id="nav-links" class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+            </ul>
+        </nav>
+    </header>
     <div class="container">
         <h1>Steganography Tool</h1>
         <input type="file" id="imageInput" accept="image/*">
