@@ -16,9 +16,10 @@
 
         .projects-section {
             display: flex;
-           
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            height: calc(100vh - 80px); /* Full height minus header */
+            padding-top: 40px;
         }
 
         .projects-header {
@@ -27,6 +28,14 @@
             color: #7D5DE6;
             margin-bottom: 40px;
             text-align: center;
+        }
+
+        .projects-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
         }
 
         .project-box {
@@ -66,6 +75,10 @@
             .project-box {
                 width: calc(100% - 40px); /* Full width minus the margins for single column layout */
             }
+
+            .projects-container {
+                flex-direction: column; /* Stack boxes vertically on very small screens */
+            }
         }
     </style>
 </head>
@@ -91,14 +104,16 @@
 
     <section class="projects-section">
         <div class="projects-header">My Projects</div>
-        <div class="project-box" onclick="window.location.href='file-type-detection.html'">
-            <div class="project-title">File Type Detection</div>
-        </div>
-        <div class="project-box" onclick="window.location.href='encryption-decryption.html'">
-            <div class="project-title">Encryption & Decryption</div>
-        </div>
-         <div class="project-box" onclick="window.location.href='steganography.html'">
-            <div class="project-title">Steganography Tool</div>
+        <div class="projects-container">
+            <div class="project-box" onclick="window.location.href='file-type-detection.html'">
+                <div class="project-title">File Type Detection</div>
+            </div>
+            <div class="project-box" onclick="window.location.href='encryption-decryption.html'">
+                <div class="project-title">Encryption & Decryption</div>
+            </div>
+            <div class="project-box" onclick="window.location.href='steganography.html'">
+                <div class="project-title">Steganography Tool</div>
+            </div>
         </div>
     </section>
     <script src="js/scripts.js"></script>
