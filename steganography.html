@@ -6,6 +6,79 @@
     <title>Steganography Tool</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+    <style>
+        .container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 400px;
+}
+
+h1 {
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+.input-container {
+    margin: 15px 0;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #cccccc;
+    resize: none;
+    font-size: 16px;
+}
+
+.button-container {
+    margin-top: 20px;
+}
+
+.button {
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+}
+
+.encode-button {
+    background-color: #4CAF50;
+}
+
+.download-button {
+    background-color: #2196F3;
+}
+
+.decode-button {
+    background-color: #FF5722;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+#outputImage {
+    margin-top: 20px;
+    max-width: 100%;
+    border-radius: 10px;
+}
+
+#decodedText {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #333333;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+    </style>
 <body>
     <div class="container">
         <h1>Steganography Tool</h1>
