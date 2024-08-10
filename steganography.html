@@ -48,29 +48,51 @@
 
         .container {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             flex-wrap: wrap;
             margin: 50px 0;
         }
 
         .section {
-            width: 45%;
+            width: 90%;
+            max-width: 600px;
             background-color: #333;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: space-around;
             margin-bottom: 20px;
         }
 
-        .section h2 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            color: white;
+        }
+
+        .tab:hover, .tab.active {
+            background-color: #45a049;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
         }
 
         input[type="file"], input[type="password"] {
             margin: 10px 0;
             padding: 10px;
-            width: 80%;
+            width: 100%;
             color: #000;
         }
 
@@ -116,24 +138,44 @@
     </header>
     <div class="container">
         <div class="section">
-            <h2>Hide an Image</h2>
-            <input type="file" id="coverImage" accept="image/*">
-            <input type="file" id="secretImage" accept="image/*">
-            <input type="password" id="encryptionKey" placeholder="Encryption Key (optional)">
-            <button onclick="hideImage()">Hide Image</button>
-            <canvas id="resultCanvas" class="canvas"></canvas>
-            <a id="downloadLink" download="stego.png">Download Stego Image</a>
-        </div>
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('hide')">Hide an Image</div>
+                <div class="tab" onclick="showTab('extract')">Extract an Image</div>
+            </div>
 
-        <div class="section">
-            <h2>Extract an Image</h2>
-            <input type="file" id="stegoImage" accept="image/*">
-            <input type="password" id="decryptionKey" placeholder="Decryption Key (if used)">
-            <button onclick="extractImage()">Extract Image</button>
-            <canvas id="extractedCanvas" class="canvas"></canvas>
+            <div id="hide" class="tab-content active">
+                <h2>Hide an Image</h2>
+                <input type="file" id="coverImage" accept="image/*">
+                <input type="file" id="secretImage" accept="image/*">
+                <input type="password" id="encryptionKey" placeholder="Encryption Key (optional)">
+                <button onclick="hideImage()">Hide Image</button>
+                <canvas id="resultCanvas" class="canvas"></canvas>
+                <a id="downloadLink" download="stego.png" style="display:none;">Download Stego Image</a>
+            </div>
+
+            <div id="extract" class="tab-content">
+                <h2>Extract an Image</h2>
+                <input type="file" id="stegoImage" accept="image/*">
+                <input type="password" id="decryptionKey" placeholder="Decryption Key (if used)">
+                <button onclick="extractImage()">Extract Image</button>
+                <canvas id="extractedCanvas" class="canvas"></canvas>
+            </div>
         </div>
     </div>
     <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.getElementById(tabId).classList.add('active');
+            document.querySelector(`.tab[onclick="showTab('${tabId}')"]`).classList.add('active');
+        }
+
         function hideImage() {
             const coverImageInput = document.getElementById('coverImage');
             const secretImageInput = document.getElementById('secretImage');
