@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Steganography Tool</title>
+       <link rel="stylesheet" href="css/styles.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -13,38 +14,7 @@
             color: #fff;
         }
 
-        header {
-            background-color: #1c1c1c;
-            padding: 20px;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-            color: #7D5DE6;
-        }
-
-        .nav {
-            display: flex;
-            justify-content: center;
-            list-style: none;
-            padding: 0;
-        }
-
-        .nav a {
-            display: inline-block;
-            margin: 10px;
-            padding: 10px 20px;
-            color: #fff;
-            text-decoration: none;
-            background-color: #7D5DE6;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-
-        .nav a:hover {
-            background-color: #5a3dca;
-        }
+       
 
         .container {
             display: flex;
@@ -129,11 +99,17 @@
 </head>
 <body>
     <header>
-        <h1>Advanced Steganography Tool</h1>
-        <nav class="nav">
-            <a href="index.html">Home</a>
-            <a href="file-type-detection.html">File Type Detection</a>
-            <a href="steganography.html">Steganography Tool</a>
+       <nav>
+            <div class="menu-btn" id="menu-btn">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul id="nav-links" class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+            </ul>
         </nav>
     </header>
     <div class="container">
