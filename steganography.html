@@ -123,40 +123,87 @@
                     ctx.drawImage(img, 0, 0);
 
                     if (operation === 'hide') {
-                        // Hiding text in the image
-                        for (let i = 0; i < textInput.length; i++) {
-                            const char = textInput.charCodeAt(i);
-                            const x = i % img.width;
-                            const y = Math.floor(i / img.width);
-                            const pixel = ctx.getImageData(x, y, 1, 1);
-                            pixel.data[0] = (pixel.data[0] & 0xFE) | (char >> 7); // Red channel
-                            pixel.data[1] = (pixel.data[1] & 0xFE) | ((char >> 6) & 1); // Green channel
-                            pixel.data[2] = (pixel.data[2] & 0xFE) | ((char >> 5) & 1); // Blue channel
-                            ctx.putImageData(pixel, x, y);
-                        }
-
+                        hideText(ctx, textInput, img.width, img.height);
                         const downloadBtn = document.getElementById('downloadBtn');
                         downloadBtn.href = canvas.toDataURL('image/png');
                         downloadBtn.style.display = 'block';
                     } else if (operation === 'extract') {
-                        // Extracting text from the image
-                        let extractedText = '';
-                        for (let i = 0; i < img.width * img.height; i++) {
-                            const x = i % img.width;
-                            const y = Math.floor(i / img.width);
-                            const pixel = ctx.getImageData(x, y, 1, 1);
-                            const charCode =
-                                ((pixel.data[0] & 1) << 7) |
-                                ((pixel.data[1] & 1) << 6) |
-                                ((pixel.data[2] & 1) << 5);
-                            if (charCode === 0) break;
-                            extractedText += String.fromCharCode(charCode);
-                        }
+                        const extractedText = extractText(ctx, img.width, img.height);
                         alert("Extracted Text: " + extractedText);
                     }
-                }
+                };
             };
             reader.readAsDataURL(file);
+        }
+
+        function hideText(ctx, text, width, height) {
+            const binaryText = textToBinary(text + '\0');
+            let binaryIndex = 0;
+
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    if (binaryIndex >= binaryText.length) {
+                        return;
+                    }
+
+                    const pixel = ctx.getImageData(x, y, 1, 1);
+                    const r = pixel.data[0];
+                    const g = pixel.data[1];
+                    const b = pixel.data[2];
+
+                    const newR = (r & 0xFE) | parseInt(binaryText[binaryIndex++]);
+                    const newG = (g & 0xFE) | parseInt(binaryText[binaryIndex++]);
+                    const newB = (b & 0xFE) | parseInt(binaryText[binaryIndex++]);
+
+                    pixel.data[0] = newR;
+                    pixel.data[1] = newG;
+                    pixel.data[2] = newB;
+
+                    ctx.putImageData(pixel, x, y);
+                }
+            }
+        }
+
+        function extractText(ctx, width, height) {
+            let binaryText = '';
+            let charCode = '';
+
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const pixel = ctx.getImageData(x, y, 1, 1);
+                    const r = pixel.data[0];
+                    const g = pixel.data[1];
+                    const b = pixel.data[2];
+
+                    charCode += (r & 1).toString();
+                    charCode += (g & 1).toString();
+                    charCode += (b & 1).toString();
+
+                    if (charCode.length === 8) {
+                        const char = String.fromCharCode(parseInt(charCode, 2));
+                        if (char === '\0') {
+                            return binaryToText(binaryText);
+                        }
+                        binaryText += charCode;
+                        charCode = '';
+                    }
+                }
+            }
+
+            return binaryToText(binaryText);
+        }
+
+        function textToBinary(text) {
+            return text.split('').map(char => {
+                return char.charCodeAt(0).toString(2).padStart(8, '0');
+            }).join('');
+        }
+
+        function binaryToText(binary) {
+            const text = binary.match(/.{1,8}/g).map(byte => {
+                return String.fromCharCode(parseInt(byte, 2));
+            }).join('');
+            return text;
         }
     </script>
 </body>
