@@ -16,10 +16,18 @@
 
         .projects-section {
             display: flex;
-            flex-wrap: wrap; /* Allow wrapping of the project boxes */
+            flex-direction: column; /* Stack the header and projects vertically */
             justify-content: center;
             align-items: center;
             height: calc(100vh - 80px); /* Full height minus header */
+        }
+
+        .projects-header {
+            font-size: 36px;
+            font-weight: bold;
+            color: #7D5DE6;
+            margin-bottom: 40px;
+            text-align: center;
         }
 
         .project-box {
@@ -83,6 +91,7 @@
     </header>
 
     <section class="projects-section">
+        <div class="projects-header">My Projects</div>
         <div class="project-box" onclick="window.location.href='file-type-detection.html'">
             <div class="project-title">File Type Detection</div>
         </div>
