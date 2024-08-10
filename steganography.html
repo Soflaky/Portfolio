@@ -87,6 +87,14 @@
         <button onclick="extractText()">Extract Text</button>
         <div id="result"></div>
     </div>
+     <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const navLinks = document.getElementById('nav-links');
+
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
     <script src="js/script.js"></script>
 </body>
 </html>
