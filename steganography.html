@@ -5,156 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Advanced Steganography Tool</title>
     <link rel="stylesheet" href="css/styles.css">
-    <style>
-         body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #0c0c0c; /* Dark gradient background */
-            color: #fff;
-        }
-
-        header {
-            background-color: #1c1c1c;
-            color: #fff;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo img {
-            height: 40px;
-            vertical-align: middle;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-        }
-
-        .menu-btn {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            margin-right: 20px;
-        }
-
-        .menu-btn div {
-            width: 25px;
-            height: 3px;
-            background-color: white;
-            margin: 4px;
-            transition: 0.3s;
-        }
-
-
-        .container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 50px 0;
-        }
-
-        .section {
-            width: 90%;
-            max-width: 600px;
-            background-color: #f7f7f7;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .tabs {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
-        }
-
-        .tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            background-color: #4CAF50;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-            color: white;
-        }
-
-        .tab:hover, .tab.active {
-            background-color: #45a049;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        input[type="file"], input[type="password"] {
-            margin: 10px 0;
-            padding: 10px;
-            width: 100%;
-            color: #000;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        canvas {
-            margin-top: 20px;
-            border: 1px solid #ccc;
-        }
-
-        a {
-            display: block;
-            margin-top: 20px;
-            color: #4CAF50;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            .menu-btn {
-                display: flex;
-            }
-
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 60px;
-                right: 0;
-                background-color: #1c1c1c;
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .nav-links li {
-                margin: 0;
-                border-bottom: 1px solid #333;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-        }
-    </style>
 </head>
+    <style>
+        .container {
+    padding: 20px;
+    max-width: 900px;
+    margin: auto;
+}
+
+.tabs {
+    display: flex;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.tab {
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    margin-right: 5px;
+    background-color: #f5f5f5;
+    transition: background-color 0.3s;
+}
+
+.tab.active, .tab:hover {
+    background-color: #ddd;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+canvas {
+    display: block;
+    margin-top: 20px;
+    max-width: 100%;
+}
+    </style>
 <body>
     <header>
         <div class="logo">
