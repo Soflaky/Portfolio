@@ -90,19 +90,6 @@
             background: rgba(125, 93, 230, 0.1);
         }
 
-        #keyDisplay {
-            display: none;
-            margin-top: 20px;
-            padding: 15px;
-            border: 2px solid #ff6b6b;
-            border-radius: 5px;
-            background: rgba(255, 107, 107, 0.1);
-            color: #ff6b6b;
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-        }
-
         .loader {
             border: 5px solid #f3f3f3;
             border-top: 5px solid #7D5DE6;
@@ -151,26 +138,28 @@
         <h1>Steganography Tool</h1>
         <input type="file" id="imageInput" accept="image/png, image/jpeg">
         <input type="text" id="textInput" placeholder="Enter text to hide">
-        <select id="operation" onchange="updatePlaceholder()">
+        <select id="operation" onchange="updateUI()">
             <option value="hide">Hide Text</option>
             <option value="extract">Extract Text</option>
         </select>
         <button onclick="processImage()">Process</button>
-        <div id="keyDisplay"></div>
         <div class="loader" id="loader"></div>
         <a id="downloadBtn" download="stego_image.png">Download Image</a>
         <div id="output"></div>
     </section>
 
     <script>
-        function updatePlaceholder() {
+        let generatedKey = '';
+
+        function updateUI() {
             const operation = document.getElementById('operation').value;
             const textInput = document.getElementById('textInput');
 
             if (operation === 'extract') {
-                textInput.placeholder = "Enter the hidden key";
+                textInput.placeholder = 'Enter the hidden key';
+                textInput.value = '';
             } else {
-                textInput.placeholder = "Enter text to hide";
+                textInput.placeholder = 'Enter text to hide';
             }
         }
 
@@ -181,12 +170,10 @@
             const output = document.getElementById('output');
             const loader = document.getElementById('loader');
             const downloadBtn = document.getElementById('downloadBtn');
-            const keyDisplay = document.getElementById('keyDisplay');
 
             output.textContent = '';
             downloadBtn.style.display = 'none';
             loader.style.display = 'block';
-            keyDisplay.style.display = 'none';
 
             const file = imageInput.files[0];
             if (!file) {
@@ -217,45 +204,30 @@
                             return;
                         }
 
-                        const key = generateKey(16);
-                        const encryptedText = encryptText(text, key);
-                        hideText(ctx, encryptedText, img.width, img.height);
-
-                        keyDisplay.textContent = `Generated Key: ${key}`;
-                        keyDisplay.style.display = 'block';
-
+                        generatedKey = generateKey(16);
+                        hideText(ctx, encryptText(text, generatedKey), img.width, img.height);
+                        output.innerHTML = `Text hidden successfully. Generated Key: <strong>${generatedKey}</strong>`;
                         downloadBtn.href = canvas.toDataURL('image/png');
                         downloadBtn.style.display = 'block';
-                        output.textContent = "Text hidden successfully. Click 'Download Image' to save.";
                     } else if (operation === 'extract') {
-                        const key = textInput.value.trim();
-                        if (!key) {
+                        const enteredKey = textInput.value;
+                        if (!enteredKey) {
                             showError("Please enter the hidden key.");
                             return;
                         }
 
-                        const extractedText = extractText(ctx, img.width, img.height);
-                        const decryptedText = decryptText(extractedText, key);
+                        const extractedText = decryptText(extractText(ctx, img.width, img.height), enteredKey);
 
-                        if (!decryptedText) {
-                            showError("Wrong key! Unable to extract text.");
+                        if (extractedText) {
+                            output.textContent = "Extracted Text: " + extractedText;
                         } else {
-                            output.textContent = "Extracted Text: " + decryptedText;
+                            showError("Wrong key. Unable to extract text.");
                         }
                     }
                     loader.style.display = 'none';
                 };
             };
             reader.readAsDataURL(file);
-        }
-
-        function generateKey(length) {
-            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let key = '';
-            for (let i = 0; i < length; i++) {
-                key += characters.charAt(Math.floor(Math.random() * characters.length));
-            }
-            return key;
         }
 
         function canTextFitInImage(text, width, height) {
@@ -299,8 +271,9 @@
             return text.split('').map((char, index) => String.fromCharCode(char.charCodeAt(0) ^ key.charCodeAt(index % key.length))).join('');
         }
 
-        function decryptText(encryptedText, key) {
-            return encryptText(encryptedText, key);
+        function decryptText(text, key) {
+            const decryptedText = text.split('').map((char, index) => String.fromCharCode(char.charCodeAt(0) ^ key.charCodeAt(index % key.length))).join('');
+            return decryptedText.includes('\0') ? decryptedText.replace(/\0.*/, '') : '';
         }
 
         function textToBinary(text) {
@@ -308,16 +281,27 @@
         }
 
         function binaryToText(binary) {
-            const bytes = binary.match(/.{1,8}/g);
-            return bytes.map(byte => String.fromCharCode(parseInt(byte, 2))).join('');
+            const text = [];
+            for (let i = 0; i < binary.length; i += 8) {
+                text.push(String.fromCharCode(parseInt(binary.substring(i, i + 8), 2)));
+            }
+            return text.join('');
+        }
+
+        function generateKey(length) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let key = '';
+            for (let i = 0; i < length; i++) {
+                key += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return key;
         }
 
         function showError(message) {
-            const loader = document.getElementById('loader');
             const output = document.getElementById('output');
+            output.innerHTML = `<span style="color: red;">${message}</span>`;
+            const loader = document.getElementById('loader');
             loader.style.display = 'none';
-            output.textContent = message;
-            output.style.color = '#ff6b6b';
         }
     </script>
 </body>
