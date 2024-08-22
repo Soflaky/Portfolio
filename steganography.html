@@ -102,13 +102,8 @@
         }
 
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -216,12 +211,13 @@
                             return;
                         }
 
-                        const extractedText = decryptText(extractText(ctx, img.width, img.height), enteredKey);
+                        const extractedText = extractText(ctx, img.width, img.height);
+                        const decryptedText = decryptText(extractedText, enteredKey);
 
-                        if (extractedText) {
-                            output.textContent = "Extracted Text: " + extractedText;
+                        if (decryptedText) {
+                            output.textContent = decryptedText;
                         } else {
-                            showError("Wrong key. Unable to extract text.");
+                            showError("Wrong key.");
                         }
                     }
                     loader.style.display = 'none';
@@ -273,7 +269,7 @@
 
         function decryptText(text, key) {
             const decryptedText = text.split('').map((char, index) => String.fromCharCode(char.charCodeAt(0) ^ key.charCodeAt(index % key.length))).join('');
-            return decryptedText.includes('\0') ? decryptedText.replace(/\0.*/, '') : '';
+            return decryptedText.includes('\0') ? decryptedText.split('\0')[0] : null;
         }
 
         function textToBinary(text) {
