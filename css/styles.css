@@ -539,4 +539,152 @@ footer {
         width: 40px;
         height: 40px;
     }
+    /* Add these styles to your existing CSS file */
+
+/* CTF Cards on main writeups page */
+.ctf-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.ctf-card {
+    background: #1a1a1a;
+    border-radius: 10px;
+    padding: 30px;
+    margin: 20px 0;
+    transition: transform 0.3s ease;
+    border: 2px solid #7D5DE6;
+}
+
+.ctf-card:hover {
+    transform: translateY(-5px);
+}
+
+.ctf-card h2 {
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+/* Challenge grid on competition page */
+.ctf-info {
+    max-width: 800px;
+    margin: 0 auto 40px;
+    text-align: left;
+}
+
+.competition-details {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.detail-item {
+    background: #1a1a1a;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #7D5DE6;
+}
+
+.challenges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.challenge-card {
+    background: #1a1a1a;
+    border: 2px solid #7D5DE6;
+    border-radius: 10px;
+    padding: 20px;
+    text-decoration: none;
+    color: #fff;
+    transition: transform 0.3s ease;
+}
+
+.challenge-card:hover {
+    transform: translateY(-5px);
+    background: #2a2a2a;
+}
+
+.challenge-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.category {
+    background: #7D5DE6;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.points {
+    color: #FFC600;
+}
+
+/* Individual challenge writeup page */
+.writeup-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.challenge-header {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.challenge-meta {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.challenge-details {
+    background: #1a1a1a;
+    border-radius: 10px;
+    padding: 30px;
+    margin-top: 20px;
+}
+
+.challenge-details h2 {
+    color: #7D5DE6;
+    margin: 30px 0 15px;
+}
+
+.challenge-details h2:first-child {
+    margin-top: 0;
+}
+
+.solution-content {
+    line-height: 1.6;
+}
+
+.flag {
+    background: #2a2a2a;
+    padding: 15px;
+    border-radius: 5px;
+    font-family: monospace;
+    margin-top: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .challenges-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+    
+    .competition-details {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .writeup-content {
+        padding: 15px;
+    }
+}
 }
