@@ -114,15 +114,21 @@
             font-size: 1.1rem;
         }
 
+        img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
         @media (max-width: 768px) {
             .writeup-container {
                 margin: 2rem auto;
             }
-            
+
             .writeup-header h1 {
                 font-size: 2rem;
             }
-            
+
             .writeup-content {
                 padding: 1.5rem;
             }
@@ -155,46 +161,32 @@
                 </div>
                 <div class="section">
                     <h2>Solution</h2>
-                    <p>       Initial Analysis
-
-                              Given a GIF file that presumably contains hidden information
-                              The challenge name and description hint at transparency/visibility tricks
-                              "Invisible ink" suggests parts of the image might be hidden or partially visible
-
-
-                              Using Stegsolve
-
-                              Tool used: Stegsolve (popular steganography analysis tool)
-                              First step: Analyzed the GIF file to extract individual frames
-                              Found 2 distinct frames in the GIF
-                            
-
-                              Frame Analysis
-
-                              Downloaded both frames separately
-                              Used Stegsolve's color manipulation capabilities to enhance visibility
-                              Each frame contained partial letters of the flag
-                              Neither frame alone contained the complete flag
-                              <img src="trial1.bmp" alt="frame1">
-                              <img src="trial2.bmp" alt="frame2">
-                              Flag Recovery
-
-                              Key insight: The flag was split across two frames
-                              Used Stegsolve's frame combiner feature to merge the two frames
-                              The combination revealed the complete flag
-                              <img src="invinkflag.bmp" alt="frame2">
-
-
-                              Tools Used
-
-                              Stegsolve (Primary tool) 
-                              Frame extraction
-                              Color plane analysis
-                              Frame combination</p>
+                    <ol>
+                        <li><strong>Initial Analysis:</strong> Given a GIF file that presumably contains hidden information. The challenge name and description hint at transparency/visibility tricks. "Invisible ink" suggests parts of the image might be hidden or partially visible.</li>
+                        <li><strong>Using Stegsolve:</strong> We used Stegsolve, a popular steganography analysis tool. The first step was analyzing the GIF file to extract individual frames, and we found 2 distinct frames.</li>
+                        <li><strong>Frame Analysis:</strong> We downloaded both frames separately and used Stegsolve's color manipulation capabilities to enhance visibility. Each frame contained partial letters of the flag, but neither frame alone contained the complete flag.</li>
+                        <li><strong>Flag Recovery:</strong> The key insight was that the flag was split across two frames. We used Stegsolve's frame combiner feature to merge the two frames, revealing the complete flag.</li>
+                    </ol>
+                    <div>
+                        <img src="trial1.bmp" alt="Frame 1" style="max-width: 50%;">
+                        <img src="trial2.bmp" alt="Frame 2" style="max-width: 50%;">
+                    </div>
+                    <div>
+                        <img src="invinkflag.bmp" alt="Recovered Flag" style="max-width: 100%;">
+                    </div>
                 </div>
                 <div class="section">
                     <h2>Flag</h2>
                     <code class="flag">WGMY{b6d180d9c302d8a8daad1f2174a0b212}</code>
+                </div>
+                <div class="section">
+                    <h2>Tools Used</h2>
+                    <ul>
+                        <li>Stegsolve (Primary tool)</li>
+                        <li>Frame extraction</li>
+                        <li>Color plane analysis</li>
+                        <li>Frame combination</li>
+                    </ul>
                 </div>
             </section>
         </article>
