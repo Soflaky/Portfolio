@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOFLAKY - DCM Meta Writeup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0c0c0c;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: #0c0c0c;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .logo {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #7D5DE6;
+        }
+
+        .writeup-container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 1rem;
+        }
+
+        .writeup-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .writeup-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .challenge-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .category {
+            background: #7D5DE6;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+        }
+
+        .points {
+            color: #FFC600;
+            font-weight: bold;
+        }
+
+        .writeup-content {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section h2 {
+            color: #7D5DE6;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 0.5rem;
+        }
+
+        .section ul {
+            list-style-position: inside;
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .code-block {
+            background: #2a2a2a;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+        }
+
+        .tools-used {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .tool-tag {
+            background: #2a2a2a;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .writeup-container {
+                margin: 2rem auto;
+            }
+            
+            .writeup-header h1 {
+                font-size: 2rem;
+            }
+            
+            .writeup-content {
+                padding: 1.5rem;
+            }
+
+            .code-block {
+                padding: 1rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">SOFLAKY</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article class="writeup-container">
+            <header class="writeup-header">
+                <h1>DCM Meta</h1>
+                <div class="challenge-meta">
+                    <span class="category">Misc</span>
+                </div>
+            </header>
+            <section class="writeup-content">
+                <div class="section">
+                    <h2>Challenge Description</h2>
+                    <ul>
+                        <li><strong>Challenge type:</strong> Misc</li>
+                        <li><strong>File provided:</strong> challenge.dcm (DICOM file)</li>
+                        <li><strong>Given sequence:</strong> [25, 10, 0, 3, 17, 19, 23, 27, 4, 13, 20, 8, 24, 21, 31, 15, 7, 29, 6, 1, 9, 30, 22, 5, 28, 18, 26, 11, 2, 14, 16, 12]</li>
+                        <li><strong>Flag format:</strong> WGMY{...}</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>Solution Steps</h2>
+                    <h3 style="color: #FFC600; margin: 1rem 0;">1. Initial Analysis</h3>
+                    <ul>
+                        <li>The file was a DICOM format file (commonly used for medical imaging)</li>
+                        <li>When trying to read it normally, encountered error about missing DICOM File Meta Information header</li>
+                        <li>Used force=True parameter in pydicom to read the file anyway</li>
+                    </ul>
+
+                    <h3 style="color: #FFC600; margin: 1rem 0;">2. Data Extraction</h3>
+                    <ul>
+                        <li>Used pydicom library to extract metadata</li>
+                        <li>Found interesting metadata elements in group 0x0011</li>
+                        <li>First field (0011,0010) contained "WGMY" - confirming flag format</li>
+                        <li>Other fields contained byte values like b'f\x00\x00\x00'</li>
+                    </ul>
+
+                    <h3 style="color: #FFC600; margin: 1rem 0;">3. Data Processing</h3>
+                    <ul>
+                        <li>Extracted all the values from metadata fields (0011,1000) through (0011,101F)</li>
+                        <li>Cleaned up the data by removing b' prefix and \x00\x00\x00 suffix</li>
+                        <li>Combined values into a single string: f63acd3b781277c1d7d3e700b5566535454</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>Solution Script</h2>
+                    <div class="code-block">
+import struct
+import pydicom
+
+# Replace with the path to the DICOM file
+file_path = "challenge.dcm"
+sequence = [25, 10, 0, 3, 17, 19, 23, 27, 4, 13, 20, 8, 24, 21, 31, 15, 7, 29, 6, 1, 9, 30, 22, 5, 28, 18, 26, 11, 2, 14, 16, 12]
+
+def reconstruct_flag(file_path, sequence):
+    try:
+        # Force read the DICOM file
+        dicom_data = pydicom.dcmread(file_path, force=True)
+        
+        # Collect and decode metadata values
+        decoded_values = []
+        for elem in dicom_data:
+            if elem.tag.group == 0x0011:  # Check for group 0011 elements
+                if isinstance(elem.value, bytes):
+                    decoded_value = elem.value.decode('utf-8').strip('\x00')
+                    decoded_values.append(decoded_value)
+        
+        # Reorder the decoded values using the sequence
+        reordered_values = [decoded_values[i] for i in sequence if i < len(decoded_values)]
+        
+        # Combine the reordered values into the flag
+        flag = "WGMY{" + "".join(reordered_values) + "}"
+        print(f"Flag: {flag}")
+    except Exception as e:
+        print(f"Error processing file: {e}")
+
+# Run the function
+reconstruct_flag(file_path, sequence)
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Code Explanation</h2>
+                    <ul>
+                        <li>The script uses pydicom to read the DICOM file with force=True to bypass header validation</li>
+                        <li>It extracts metadata values from group 0x0011</li>
+                        <li>Decodes byte values and removes null bytes</li>
+                        <li>Uses the given sequence to reorder the values</li>
+                        <li>Constructs the final flag by adding WGMY{} wrapper</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>Tools Used</h2>
+                    <div class="tools-used">
+                        <span class="tool-tag">Python</span>
+                        <span class="tool-tag">pydicom library</span>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Key Learning Points</h2>
+                    <ul>
+                        <li>DICOM file format can contain metadata that may hide flag information</li>
+                        <li>Importance of checking file metadata in CTF challenges</li>
+                        <li>Using pydicom's force=True parameter when dealing with non-standard DICOM files</li>
+                        <li>Handling byte strings and null byte removal in Python</li>
+                        <li>Applying reordering sequences to construct the final flag</li>
+                    </ul>
+                </div>
+            </section>
+        </article>
+    </main>
+</body>
+</html>
