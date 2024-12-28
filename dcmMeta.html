@@ -115,7 +115,37 @@
             margin: 1rem 0;
             overflow-x: auto;
         }
+.challenge-files {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
 
+        .challenge-files h2 {
+            color: #7D5DE6;
+            font-size: 1.5rem;
+        }
+
+        .challenge-files ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .challenge-files li {
+            margin-bottom: 10px;
+        }
+
+        .challenge-files a {
+            color: #7D5DE6;
+            text-decoration: none;
+            padding: 5px;
+            background: #333;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .challenge-files a:hover {
+            background: #5e3dbf;
+        }
         pre[class*="language-"] {
             background: #2a2a2a !important;
             padding: 1.5rem;
@@ -153,7 +183,13 @@
                         <li><strong>Flag format:</strong> WGMY{...}</li>
                     </ul>
                 </div>
-
+     <section class="challenge-files">
+                    <h2>Challenge Files</h2>
+                    
+                        <a href="challenge.dcm" download="challenge.dcm">Download Challenge.dcm</a>
+                        
+                    
+                </section>
                 <div class="section">
                     <h2>Solution Steps</h2>
                     <h3 style="color: #FFC600; margin: 1rem 0;">1. Initial Analysis</h3>
