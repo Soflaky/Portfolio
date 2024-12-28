@@ -1,1 +1,203 @@
-invInk.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOFLAKY - Invisible Ink Writeup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0c0c0c;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: #0c0c0c;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .logo {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #7D5DE6;
+        }
+
+        .writeup-container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 1rem;
+        }
+
+        .writeup-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .writeup-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .challenge-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .category {
+            background: #7D5DE6;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+        }
+
+        .diff {
+            color: #FFC600;
+            font-weight: bold;
+        }
+
+        .writeup-content {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section h2 {
+            color: #7D5DE6;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .flag {
+            display: inline-block;
+            background: #2a2a2a;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .writeup-container {
+                margin: 2rem auto;
+            }
+            
+            .writeup-header h1 {
+                font-size: 2rem;
+            }
+            
+            .writeup-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">SOFLAKY</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article class="writeup-container">
+            <header class="writeup-header">
+                <h1>Invisible Ink</h1>
+                <div class="challenge-meta">
+                    <span class="category">MISC</span>
+                    <span class="diff">Medium</span>
+                </div>
+            </header>
+            <section class="writeup-content">
+                <div class="section">
+                    <h2>Description</h2>
+                    <p>The flag is hidden somewhere in this GIF. You can't see it? Must be written in transparent ink.</p>
+                </div>
+                <div class="section">
+                    <h2>Solution</h2>
+                    <p>       Initial Analysis
+
+                              Given a GIF file that presumably contains hidden information
+                              The challenge name and description hint at transparency/visibility tricks
+                              "Invisible ink" suggests parts of the image might be hidden or partially visible
+
+
+                              Using Stegsolve
+
+                              Tool used: Stegsolve (popular steganography analysis tool)
+                              First step: Analyzed the GIF file to extract individual frames
+                              Found 2 distinct frames in the GIF
+                            
+
+                              Frame Analysis
+
+                              Downloaded both frames separately
+                              Used Stegsolve's color manipulation capabilities to enhance visibility
+                              Each frame contained partial letters of the flag
+                              Neither frame alone contained the complete flag
+                              <img src="trial1.bmp" alt="frame1">
+                              <img src="trial2.bmp" alt="frame2">
+                              Flag Recovery
+
+                              Key insight: The flag was split across two frames
+                              Used Stegsolve's frame combiner feature to merge the two frames
+                              The combination revealed the complete flag
+                              <img src="invinkflag.bmp" alt="frame2">
+
+
+                              Tools Used
+
+                              Stegsolve (Primary tool) 
+                              Frame extraction
+                              Color plane analysis
+                              Frame combination</p>
+                </div>
+                <div class="section">
+                    <h2>Flag</h2>
+                    <code class="flag">WGMY{b6d180d9c302d8a8daad1f2174a0b212}</code>
+                </div>
+            </section>
+        </article>
+    </main>
+</body>
+</html>
