@@ -162,17 +162,19 @@
                 <div class="section">
                     <h2>Solution</h2>
                     <ol>
-                        <li><strong>Initial Analysis:</strong> Given a GIF file that presumably contains hidden information. The challenge name and description hint at transparency/visibility tricks. "Invisible ink" suggests parts of the image might be hidden or partially visible.</li>
+                        <li><strong>Initial Analysis:</strong> <ul></li>Given a GIF file that presumably contains hidden information</li>
+                        </li>The challenge name and description hint at transparency/visibility tricks</li>
+                            </li>"Invisible ink" suggests parts of the image might be hidden or partially visible</li></ul></li>
                         <li><strong>Using Stegsolve:</strong> We used Stegsolve, a popular steganography analysis tool. The first step was analyzing the GIF file to extract individual frames, and we found 2 distinct frames.</li>
                         <li><strong>Frame Analysis:</strong> We downloaded both frames separately and used Stegsolve's color manipulation capabilities to enhance visibility. Each frame contained partial letters of the flag, but neither frame alone contained the complete flag.</li>
                         <li><strong>Flag Recovery:</strong> The key insight was that the flag was split across two frames. We used Stegsolve's frame combiner feature to merge the two frames, revealing the complete flag.</li>
                     </ol>
                     <div>
-                        <img src="trial1.bmp" alt="Frame 1" style="max-width: 40%;">
-                        <img src="trial2.bmp" alt="Frame 2" style="max-width: 40%;">
+                        <img src="trial1.bmp" alt="Frame 1" style="max-width: 30%;">
+                        <img src="trial2.bmp" alt="Frame 2" style="max-width: 30%;">
                     </div>
                     <div>
-                        <img src="invinkflag.bmp" alt="Recovered Flag" style="max-width: 100%;">
+                        <img src="invinkflag.bmp" alt="Recovered Flag" style="max-width: 300%;">
                     </div>
                 </div>
                 <div class="section">
