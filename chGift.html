@@ -65,19 +65,24 @@
             padding: 0 1.5rem;
         }
 
-        .writeup-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+        .title-section {
+    text-align: center;
+    margin-bottom: 2rem;
+}
 
-        .writeup-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #7D5DE6, #9B7BFF);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+.title-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, #7D5DE6, #9B7BFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 
+@media (max-width: 768px) {
+    .title-section h1 {
+        font-size: 2rem;
+    }
+}
         .challenge-meta {
             display: flex;
             justify-content: center;
@@ -212,13 +217,13 @@
     </header>
     <main>
         <article class="writeup-container">
-            <header class="writeup-header">
-                <h1>Christmas GIFt</h1>
-                <div class="challenge-meta">
-                    <span class="category">MISC</span>
-                    <span class="diff">Medium</span>
-                </div>
-            </header>
+            <div class="section title-section">
+    <h1>Christmas GIFt</h1>
+    <div class="challenge-meta">
+        <span class="category">MISC</span>
+        <span class="diff">Easy</span>
+    </div>
+</div>
             <section class="writeup-content">
                 <div class="section">
                     <h2>Description</h2>
