@@ -1,1 +1,290 @@
-chGift.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOFLAKY - Christmas GIFt Writeup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0c0c0c;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(12, 12, 12, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #2a2a2a;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: #7D5DE6;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #7D5DE6;
+            transform: translateY(-1px);
+        }
+
+        .writeup-container {
+            max-width: 800px;
+            margin: 7rem auto 4rem;
+            padding: 0 1.5rem;
+        }
+
+        .writeup-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .writeup-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #7D5DE6, #9B7BFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .challenge-meta {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .category {
+            background: #7D5DE6;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+
+        .diff {
+            color: #FFC600;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .writeup-content {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section h2 {
+            color: #7D5DE6;
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .flag {
+            display: inline-block;
+            background: #2a2a2a;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 1.1rem;
+            border: 1px solid #3a3a3a;
+        }
+
+        ol {
+            padding-left: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        ol li {
+            margin-bottom: 0.8rem;
+        }
+
+        .result-image {
+            margin-top: 1.5rem;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.02);
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        ul li::before {
+            content: "•";
+            color: #7D5DE6;
+            position: absolute;
+            left: 0;
+        }
+
+        .tips {
+            background: #2a2a2a;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .tips h3 {
+            color: #7D5DE6;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .writeup-container {
+                margin-top: 5rem;
+            }
+
+            .writeup-header h1 {
+                font-size: 2rem;
+            }
+
+            .writeup-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">SOFLAKY</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article class="writeup-container">
+            <header class="writeup-header">
+                <h1>Christmas GIFt</h1>
+                <div class="challenge-meta">
+                    <span class="category">MISC</span>
+                    <span class="diff">Medium</span>
+                </div>
+            </header>
+            <section class="writeup-content">
+                <div class="section">
+                    <h2>Description</h2>
+                    <p>Here is your christmas GIFt from santa! Just open and wait for it..</p>
+                </div>
+                <div class="section">
+                    <h2>Solution</h2>
+                    <ol>
+                        <li><strong>Initial Analysis:</strong>
+                            <ol>
+                                <li>Given a GIF file with an animated Christmas present</li>
+                                <li>Challenge name has "GIF" capitalized, hinting at GIF manipulation</li>
+                                <li>Description suggests waiting/looking through the entire animation</li>
+                            </ol>
+                        </li>
+                        <li><strong>Using Stegsolve:</strong>
+                            <ol>
+                                <li>Tool used: Stegsolve for GIF analysis</li>
+                                <li>Used the Frame Browser feature to examine individual frames</li>
+                                <li>The GIF contained 1402 total frames</li>
+                                <li>The flag was hidden in the very last frame (1402 of 1402)</li>
+                            </ol>
+                        </li>
+                        <li><strong>Flag Discovery:</strong>
+                            <ol>
+                                <li>Found in frame 1402: Image of a present with the flag visible</li>
+                                <li>Flag format: wgmy{1eaa6da7b7f5df6f7c0381c8f23af4d3}</li>
+                                <li>Flag was clearly visible in plain text on the final frame</li>
+                            </ol>
+                            <div class="result-image">
+                                <img src="flag.png" alt="Flag in final frame">
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <div class="section">
+                    <h2>Tools Used</h2>
+                    <ul>
+                        <li>Stegsolve</li>
+                        <li>Frame Browser functionality</li>
+                    </ul>
+                </div>
+                <div class="section">
+                    <h2>Key Takeaways</h2>
+                    <ul>
+                        <li>Always check all frames in a GIF file</li>
+                        <li>Pay attention to challenge descriptions - "wait for it" was a hint</li>
+                        <li>Sometimes the simplest solution (checking the last frame) is correct</li>
+                        <li>The capitalization in "GIFt" was a subtle hint about GIF analysis</li>
+                    </ul>
+                    <div class="tips">
+                        <h3>Tips for Similar Challenges</h3>
+                        <ul>
+                            <li>Check beginning and end frames of GIFs</li>
+                            <li>Use frame browsing tools for animated files</li>
+                            <li>Pay attention to challenge names and descriptions for hints</li>
+                            <li>Don't overcomplicate the solution - sometimes flags are hidden in plain sight</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="section">
+                    <h2>Flag</h2>
+                    <code class="flag">wgmy{1eaa6da7b7f5df6f7c0381c8f23af4d3}</code>
+                </div>
+            </section>
+        </article>
+    </main>
+</body>
+</html>
