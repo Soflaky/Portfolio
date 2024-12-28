@@ -539,7 +539,8 @@ footer {
         width: 40px;
         height: 40px;
     }
-    /* Add these styles to your existing CSS file */
+}
+/* Add these styles to your existing CSS file */
 
 /* CTF Cards on main writeups page */
 .ctf-container {
@@ -686,5 +687,4 @@ footer {
     .writeup-content {
         padding: 15px;
     }
-}
 }
