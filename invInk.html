@@ -12,23 +12,29 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #0c0c0c;
             color: #fff;
             line-height: 1.6;
         }
 
         header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 2rem;
-            background: #0c0c0c;
+            background: rgba(12, 12, 12, 0.9);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid #2a2a2a;
+            z-index: 1000;
         }
 
         .logo {
-            color: #fff;
+            color: #7D5DE6;
             text-decoration: none;
             font-size: 1.5rem;
             font-weight: bold;
@@ -45,17 +51,18 @@
             text-decoration: none;
             padding: 0.5rem 1rem;
             border-radius: 4px;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
         }
 
         nav a:hover {
             background-color: #7D5DE6;
+            transform: translateY(-1px);
         }
 
         .writeup-container {
             max-width: 800px;
-            margin: 4rem auto;
-            padding: 0 1rem;
+            margin: 7rem auto 4rem;
+            padding: 0 1.5rem;
         }
 
         .writeup-header {
@@ -66,33 +73,42 @@
         .writeup-header h1 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            background: linear-gradient(45deg, #7D5DE6, #9B7BFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .challenge-meta {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.5rem;
+            margin-top: 1rem;
         }
 
         .category {
             background: #7D5DE6;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
         }
 
         .diff {
             color: #FFC600;
             font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .writeup-content {
             background: #1a1a1a;
-            border-radius: 10px;
-            padding: 2rem;
+            border-radius: 12px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .section {
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .section:last-child {
@@ -101,28 +117,73 @@
 
         .section h2 {
             color: #7D5DE6;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             font-size: 1.5rem;
+            font-weight: 600;
         }
 
         .flag {
             display: inline-block;
             background: #2a2a2a;
-            padding: 1rem;
-            border-radius: 5px;
-            font-family: monospace;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
             font-size: 1.1rem;
+            border: 1px solid #3a3a3a;
+        }
+
+        ol {
+            padding-left: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        ol li {
+            margin-bottom: 0.8rem;
+        }
+
+        .frame-images {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .result-image {
+            grid-column: span 2;
+            margin-top: 1.5rem;
         }
 
         img {
-            max-width: 100%;
-            border-radius: 10px;
-            margin-top: 1rem;
+            width: 100%;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.02);
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        ul li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        ul li::before {
+            content: "•";
+            color: #7D5DE6;
+            position: absolute;
+            left: 0;
         }
 
         @media (max-width: 768px) {
             .writeup-container {
-                margin: 2rem auto;
+                margin-top: 5rem;
             }
 
             .writeup-header h1 {
@@ -131,6 +192,14 @@
 
             .writeup-content {
                 padding: 1.5rem;
+            }
+
+            .frame-images {
+                grid-template-columns: 1fr;
+            }
+            
+            .result-image {
+                grid-column: span 1;
             }
         }
     </style>
@@ -162,20 +231,26 @@
                 <div class="section">
                     <h2>Solution</h2>
                     <ol>
-                        <li><strong>Initial Analysis:</strong> <ol>
-                        </li>Given a GIF file that presumably contains hidden information</li>
-                        </li>The challenge name and description hint at transparency/visibility tricks</li>
-                            </li>"Invisible ink" suggests parts of the image might be hidden or partially visible</li></ol>
-                </li>
+                        <li><strong>Initial Analysis:</strong>
+                            <ol>
+                                <li>Given a GIF file that presumably contains hidden information</li>
+                                <li>The challenge name and description hint at transparency/visibility tricks</li>
+                                <li>"Invisible ink" suggests parts of the image might be hidden or partially visible</li>
+                            </ol>
+                        </li>
                         <li><strong>Using Stegsolve:</strong> We used Stegsolve, a popular steganography analysis tool. The first step was analyzing the GIF file to extract individual frames, and we found 2 distinct frames.</li>
-                        <li><strong>Frame Analysis:</strong> We downloaded both frames separately and used Stegsolve's color manipulation capabilities to enhance visibility. Each frame contained partial letters of the flag, but neither frame alone contained the complete flag.</li>
-                        <li><strong>Flag Recovery:</strong> The key insight was that the flag was split across two frames. We used Stegsolve's frame combiner feature to merge the two frames, revealing the complete flag.</li>
+                        <li><strong>Frame Analysis:</strong> We downloaded both frames separately and used Stegsolve's color manipulation capabilities to enhance visibility. Each frame contained partial letters of the flag, but neither frame alone contained the complete flag.
+                            <div class="frame-images">
+                                <img src="trial1.bmp" alt="Frame 1">
+                                <img src="trial2.bmp" alt="Frame 2">
+                            </div>
+                        </li>
+                        <li><strong>Flag Recovery:</strong> The key insight was that the flag was split across two frames. We used Stegsolve's frame combiner feature to merge the two frames, revealing the complete flag.
+                            <div class="result-image">
+                                <img src="invinkflag.bmp" alt="Recovered Flag">
+                            </div>
+                        </li>
                     </ol>
-                    <div>
-                        <img src="trial1.bmp" alt="Frame 1" style="max-width: 30%;">
-                        <img src="trial2.bmp" alt="Frame 2" style="max-width: 30%;">
-                        <img src="invinkflag.bmp" alt="Recovered Flag" style="max-width: 300%;">
-                    </div>
                 </div>
                 <div class="section">
                     <h2>Flag</h2>
