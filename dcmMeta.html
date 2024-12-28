@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOFLAKY - DCM Meta Writeup</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
     <style>
+        /* Custom Styles */
         * {
             margin: 0;
             padding: 0;
@@ -96,10 +100,6 @@
             margin-bottom: 2rem;
         }
 
-        .section:last-child {
-            margin-bottom: 0;
-        }
-
         .section h2 {
             color: #7D5DE6;
             margin-bottom: 1rem;
@@ -108,57 +108,20 @@
             padding-bottom: 0.5rem;
         }
 
-        .section ul {
-            list-style-position: inside;
-            margin-left: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .section li {
-            margin-bottom: 0.5rem;
-        }
-
         .code-block {
             background: #2a2a2a;
             padding: 1.5rem;
             border-radius: 5px;
             margin: 1rem 0;
             overflow-x: auto;
+        }
+
+        pre[class*="language-"] {
+            background: #2a2a2a !important;
+            padding: 1.5rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
             font-family: 'Consolas', monospace;
-            font-size: 0.9rem;
-        }
-
-        .tools-used {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .tool-tag {
-            background: #2a2a2a;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .writeup-container {
-                margin: 2rem auto;
-            }
-            
-            .writeup-header h1 {
-                font-size: 2rem;
-            }
-            
-            .writeup-content {
-                padding: 1.5rem;
-            }
-
-            .code-block {
-                padding: 1rem;
-                font-size: 0.8rem;
-            }
         }
     </style>
 </head>
@@ -174,51 +137,11 @@
     </header>
     <main>
         <article class="writeup-container">
-            <header class="writeup-header">
-                <h1>DCM Meta</h1>
-                <div class="challenge-meta">
-                    <span class="category">Misc</span>
-                </div>
-            </header>
+            <!-- Content -->
             <section class="writeup-content">
                 <div class="section">
-                    <h2>Challenge Description</h2>
-                    <ul>
-                        <li><strong>Challenge type:</strong> Misc</li>
-                        <li><strong>File provided:</strong> challenge.dcm (DICOM file)</li>
-                        <li><strong>Given sequence:</strong> [25, 10, 0, 3, 17, 19, 23, 27, 4, 13, 20, 8, 24, 21, 31, 15, 7, 29, 6, 1, 9, 30, 22, 5, 28, 18, 26, 11, 2, 14, 16, 12]</li>
-                        <li><strong>Flag format:</strong> WGMY{...}</li>
-                    </ul>
-                </div>
-
-                <div class="section">
-                    <h2>Solution Steps</h2>
-                    <h3 style="color: #FFC600; margin: 1rem 0;">1. Initial Analysis</h3>
-                    <ul>
-                        <li>The file was a DICOM format file (commonly used for medical imaging)</li>
-                        <li>When trying to read it normally, encountered error about missing DICOM File Meta Information header</li>
-                        <li>Used force=True parameter in pydicom to read the file anyway</li>
-                    </ul>
-
-                    <h3 style="color: #FFC600; margin: 1rem 0;">2. Data Extraction</h3>
-                    <ul>
-                        <li>Used pydicom library to extract metadata</li>
-                        <li>Found interesting metadata elements in group 0x0011</li>
-                        <li>First field (0011,0010) contained "WGMY" - confirming flag format</li>
-                        <li>Other fields contained byte values like b'f\x00\x00\x00'</li>
-                    </ul>
-
-                    <h3 style="color: #FFC600; margin: 1rem 0;">3. Data Processing</h3>
-                    <ul>
-                        <li>Extracted all the values from metadata fields (0011,1000) through (0011,101F)</li>
-                        <li>Cleaned up the data by removing b' prefix and \x00\x00\x00 suffix</li>
-                        <li>Combined values into a single string: f63acd3b781277c1d7d3e700b5566535454</li>
-                    </ul>
-                </div>
-
-                <div class="section">
                     <h2>Solution Script</h2>
-                    <div class="code-block">
+                    <pre class="code-block"><code class="language-python">
 import struct
 import pydicom
 
@@ -250,10 +173,10 @@ def reconstruct_flag(file_path, sequence):
 
 # Run the function
 reconstruct_flag(file_path, sequence)
-                    </div>
+                    </code></pre>
                 </div>
-
-                <div class="section">
+            </section>
+            <div class="section">
                     <h2>Code Explanation</h2>
                     <ul>
                         <li>The script uses pydicom to read the DICOM file with force=True to bypass header validation</li>
@@ -271,18 +194,6 @@ reconstruct_flag(file_path, sequence)
                         <span class="tool-tag">pydicom library</span>
                     </div>
                 </div>
-
-                <div class="section">
-                    <h2>Key Learning Points</h2>
-                    <ul>
-                        <li>DICOM file format can contain metadata that may hide flag information</li>
-                        <li>Importance of checking file metadata in CTF challenges</li>
-                        <li>Using pydicom's force=True parameter when dealing with non-standard DICOM files</li>
-                        <li>Handling byte strings and null byte removal in Python</li>
-                        <li>Applying reordering sequences to construct the final flag</li>
-                    </ul>
-                </div>
-            </section>
         </article>
     </main>
 </body>
