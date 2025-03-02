@@ -51,7 +51,35 @@
         nav a:hover {
             background-color: #7D5DE6;
         }
+        .back-button-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
 
+.back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background-color: #2a2a2a;
+    padding: 0.8rem;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+}
+
+.back-button:hover {
+    background-color: #7D5DE6;
+    transform: translateX(-3px);
+}
+
+.back-button svg {
+    width: 20px;
+    height: 20px;
+}
         .writeup-container {
             max-width: 800px;
             margin: 4rem auto;
@@ -150,6 +178,13 @@
         </nav>
     </header>
     <main>
+        <div class="back-button-container">
+    <a href="cyberNights1.html" class="back-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+    </a>
+</div>
         <article class="writeup-container">
             <header class="writeup-header">
                 <h1>Escaper</h1>
