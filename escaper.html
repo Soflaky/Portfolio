@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOFLAKY - Escaper Writeup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0c0c0c;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: #0c0c0c;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .logo {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #7D5DE6;
+        }
+
+        .writeup-container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 1rem;
+        }
+
+        .writeup-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .writeup-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .challenge-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .category {
+            background: #7D5DE6;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+        }
+
+        .diff {
+            color: #FFC600;
+            font-weight: bold;
+        }
+
+        .writeup-content {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section h2 {
+            color: #7D5DE6;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .flag {
+            display: inline-block;
+            background: #2a2a2a;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        code {
+            display: block;
+            background: #2a2a2a;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 768px) {
+            .writeup-container {
+                margin: 2rem auto;
+            }
+            
+            .writeup-header h1 {
+                font-size: 2rem;
+            }
+            
+            .writeup-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">SOFLAKY</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article class="writeup-container">
+            <header class="writeup-header">
+                <h1>Escaper</h1>
+                <div class="challenge-meta">
+                    <span class="category">Web</span>
+                    <span class="diff">Medium</span>
+                </div>
+            </header>
+            <section class="writeup-content">
+                <div class="section">
+                    <h2>Description</h2>
+                    <p>"I cannot escape my reality, can you escape it?"</p>
+                </div>
+
+                <div class="section">
+                    <h2>Initial Exploration</h2>
+                    <p>Upon visiting the challenge webpage, I noticed an input field that accepted user input. Given the challenge name and description, I suspected it involved escaping a restricted environment or bypassing input sanitization.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Exploit</h2>
+                    <p>Through testing different inputs, I discovered that the input field was vulnerable to command injection. I used the following payload to retrieve the flag:</p>
+                    
+                    <code>sth -or -exec cat ../flag.txt ; -quit</code>
+                    
+                    <p>This worked because:</p>
+                    <ul style="margin-left: 2rem;">
+                        <li>The application likely executed user input as part of a command-line operation.</li>
+                        <li>The <code style="display: inline; padding: 0.2rem; background: #333;">-or -exec</code> portion injected a new command (<code style="display: inline; padding: 0.2rem; background: #333;">cat ../flag.txt</code>) to read the flag file.</li>
+                        <li>The <code style="display: inline; padding: 0.2rem; background: #333;">-quit</code> ensured proper execution and clean exit.</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>Conclusion</h2>
+                    <p>The challenge revolved around command injection, allowing arbitrary execution of system commands. Proper input sanitization and escaping special characters could prevent such vulnerabilities. While I didn't fully reverse-engineer the entire challenge logic, obtaining the flag confirmed the exploitation worked.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Flag</h2>
+                    <code class="flag">FlagY{**********}</code>
+                </div>
+            </section>
+        </article>
+    </main>
+</body>
+</html>
