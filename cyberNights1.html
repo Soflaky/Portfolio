@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOFLAKY - CyberNights Week1 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0c0c0c;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: #0c0c0c;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .logo {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #7D5DE6;
+        }
+
+        .wargames-container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 1rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .competition-desc {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            color: #ccc;
+        }
+
+        .challenges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .challenge-box {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 2rem;
+            text-decoration: none;
+            color: #fff;
+            transition: transform 0.3s;
+        }
+
+        .challenge-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .challenge-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            align-items: center;
+        }
+
+        .category {
+            background: #7D5DE6;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .diff {
+            color: #FFC600;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .challenges-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">SOFLAKY</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="wargames-container">
+            <h1>CyberNights Week1 2025</h1>
+            <p class="competition-desc">Week 1 out of 3 Weeks of a Ramadan CTF Challenge with various cybersecurity puzzles to solve.</p>
+            <div class="challenges-grid">
+                <a href="escaper.html" class="challenge-box">
+                    <h3>Escaper</h3>
+                    <p>I cannot escape my reality, can you escape it?</p>
+                    <div class="challenge-info">
+                        <span class="category">Web</span>
+                        <span class="diff">500</span>
+                    </div>
+                </a>
+                <a href="templode.html" class="challenge-box">
+                    <h3>Templode</h3>
+                    <p>We don't trust any URL shortener, so we decided to make our own.</p>
+                    <div class="challenge-info">
+                        <span class="category">Web</span>
+                        <span class="diff">500</span>
+                    </div>
+                </a>
+                <a href="lms.html" class="challenge-box">
+                    <h3>LMS</h3>
+                    <p>Who's the fastest man on Earth? = Whoooooooosh (sound effect)</p>
+                    <div class="challenge-info">
+                        <span class="category">Web</span>
+                        <span class="diff">500</span>
+                    </div>
+                </a>
+                
+            </div>
+        </section>
+    </main>
+</body>
+</html>
