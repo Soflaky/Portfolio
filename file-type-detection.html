@@ -3,65 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Upload Feature</title>
+    <title>SOFLAKY — File Type Detection</title>
     <link rel="stylesheet" href="css/styles.css">
-    <script src="js/scripts.js"></script>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #0c0c0c; /* Dark gradient background */
-            color: #fff;
-        }
-
-        /* File Upload Feature Styles */
-        .file-upload-section {
-            background: #0c0c0c;
-            text-align: center;
-            padding-bottom: 10px;
-            color: #fff;
-        }
-
-        .file-upload-section h1 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        .file-upload-section input[type="file"] {
-            margin: 20px 0;
-            padding: 10px;
-            border: 2px solid #7D5DE6;
-            border-radius: 5px;
-            background: transparent;
-            color: #fff;
-        }
-
-        .file-upload-section input[type="file"]::file-selector-button {
-            background: #7D5DE6;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .file-upload-section input[type="file"]::file-selector-button:hover {
-            background: #9E79F2;
-        }
-
-        .file-upload-section p {
-            font-size: 18px;
-            margin-top: 20px;
-        }
-    </style>
 </head>
 <body>
+
     <header>
         <div class="logo">
             <a href="index.html" class="site-title">
-                <img src="img/myLogoCropped.png" alt="Logo">
+                <img src="img/myLogoCropped.png" alt="SOFLAKY">
             </a>
         </div>
         <nav>
@@ -78,84 +28,117 @@
         </nav>
     </header>
 
-    <section class="file-upload-section">
-        <h1>Upload a file to identify its type and size</h1>
-        <input type="file" id="fileInput">
-        <p id="result"></p>
-    </section>
+    <main class="tool-page">
+        <div class="tool-container">
+
+            <div class="tool-header">
+                <span class="section-label" style="justify-content:center;">Tool</span>
+                <h1>File Type <span>Detection</span></h1>
+                <p>Upload a file to identify its type and size using magic bytes &amp; MIME detection.</p>
+            </div>
+
+            <div class="upload-zone" id="uploadZone">
+                <input type="file" id="fileInput" aria-label="Choose a file">
+                <span class="upload-icon">📂</span>
+                <h3>Drop a file here</h3>
+                <p>or <span class="browse">browse</span> to choose one</p>
+            </div>
+
+            <div id="resultCard" class="result-card" style="display:none;">
+                <div class="result-row">
+                    <span class="result-label">File Name</span>
+                    <span class="result-value" id="res-name">—</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">File Size</span>
+                    <span class="result-value" id="res-size">—</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">MIME Type</span>
+                    <span class="result-value" id="res-mime">—</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Identified Type</span>
+                    <span class="result-value" id="res-type">—</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Mahmoud — SOFLAKY</p>
+        <div class="footer-links">
+            <a href="projects.html">← Back to Projects</a>
+        </div>
+    </footer>
 
     <script>
         document.getElementById('fileInput').addEventListener('change', function(event) {
             const file = event.target.files[0];
-            if (file) {
-                const resultElement = document.getElementById('result');
+            if (!file) return;
 
-                // Display the file size
-                const fileSize = (file.size / 1024).toFixed(2); // File size in KB
-                let resultText = `File size: ${fileSize} KB<br>`;
+            document.getElementById('res-name').textContent = file.name;
+            document.getElementById('res-size').textContent = formatSize(file.size);
+            document.getElementById('res-mime').textContent = file.type || 'Unknown';
 
-                // Display the MIME type detected by the browser
-                const mimeType = file.type;
-                resultText += `Detected MIME type: ${mimeType}<br>`;
-
-                // Use file signatures for additional file type identification
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const arrayBuffer = e.target.result;
-                    const uint8Array = new Uint8Array(arrayBuffer);
-                    const fileType = identifyFileType(uint8Array);
-                    resultText += `Identified file type: ${fileType}`;
-                    resultElement.innerHTML = resultText;
-                };
-
-                // Read the first few bytes of the file
-                const blob = file.slice(0, 16); // Increase the read size for better accuracy
-                reader.readAsArrayBuffer(blob);
-            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const uint8 = new Uint8Array(e.target.result);
+                document.getElementById('res-type').textContent = identifyFileType(uint8);
+                document.getElementById('resultCard').style.display = 'block';
+            };
+            reader.readAsArrayBuffer(file.slice(0, 16));
         });
+
+        function formatSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1048576) return (bytes / 1024).toFixed(2) + ' KB';
+            return (bytes / 1048576).toFixed(2) + ' MB';
+        }
 
         function identifyFileType(bytes) {
             const signatures = {
-                'FFD8FF': 'JPEG image',
-                '89504E47': 'PNG image',
-                '25504446': 'PDF document',
-                '424D': 'BMP image',
-                '47494638': 'GIF image',
-                '49492A00': 'TIFF image',
-                '4D4D002A': 'TIFF image',
-                '504B0304': 'ZIP archive',
-                '526172211A07': 'RAR archive',
-                '7F454C46': 'ELF executable',
-                'D0CF11E0': 'DOC (Word 97-2003)',
-                '0D0A': 'TXT (Plain Text)',
-                'CFAD12F0': 'PPT (PowerPoint 97-2003)',
-                '5A4D': 'EXE (Executable file)',
-                '00000014': 'MP4 video',
-                '000001BA': 'MPG video',
-                '00000018': 'MOV video'
+                'FFD8FF':       'JPEG Image',
+                '89504E47':     'PNG Image',
+                '25504446':     'PDF Document',
+                '424D':         'BMP Image',
+                '47494638':     'GIF Image',
+                '49492A00':     'TIFF Image',
+                '4D4D002A':     'TIFF Image',
+                '504B0304':     'ZIP Archive',
+                '526172211A07': 'RAR Archive',
+                '7F454C46':     'ELF Executable',
+                'D0CF11E0':     'DOC / Office 97-2003',
+                'CFAD12F0':     'PPT (PowerPoint 97-2003)',
+                '5A4D':         'EXE (Windows Executable)',
+                '00000014':     'MP4 Video',
+                '000001BA':     'MPG Video',
+                '00000018':     'MOV Video',
+                '1F8B':         'GZIP Archive',
+                '425A68':       'BZIP2 Archive',
             };
 
-            let hexString = '';
+            let hex = '';
             for (let i = 0; i < bytes.length; i++) {
-                hexString += bytes[i].toString(16).padStart(2, '0').toUpperCase();
+                hex += bytes[i].toString(16).padStart(2,'0').toUpperCase();
             }
 
-           for (const [signature, fileType] of Object.entries(signatures)) {
-                if (hexString.startsWith(signature)) {
-                    return fileType;
-                }
+            for (const [sig, type] of Object.entries(signatures)) {
+                if (hex.startsWith(sig)) return type;
             }
-
-            return 'Unknown file type';
+            return 'Unknown File Type';
         }
-    </script>
-    <script>
+
+        const zone = document.getElementById('uploadZone');
+        zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+        zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+        zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('drag-over'); });
+
         const menuBtn = document.getElementById('menu-btn');
         const navLinks = document.getElementById('nav-links');
-
-        menuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        menuBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
     </script>
+
 </body>
 </html>

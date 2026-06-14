@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOFLAKY — eJPT Exam Writeup</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* ── eJPT-specific styles ── */
+        .ejpt-score-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(125,93,230,.18) 0%, rgba(125,93,230,.06) 100%);
+            border: 1px solid rgba(125,93,230,.45);
+            border-radius: 100px;
+            padding: 6px 18px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary-light);
+            letter-spacing: 0.04em;
+            margin-bottom: 12px;
+        }
+        .ejpt-score-badge .dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            box-shadow: 0 0 8px var(--primary-light);
+        }
+
+        .ejpt-meta-row {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .ejpt-meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+        .ejpt-meta-item .value {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-1);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .ejpt-meta-item .label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-2);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .ejpt-meta-divider {
+            width: 1px;
+            background: var(--border);
+            align-self: stretch;
+        }
+
+        .methodology-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .methodology-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            font-size: 15px;
+            color: var(--text-2);
+            line-height: 1.7;
+        }
+        .methodology-list li .step-num {
+            flex-shrink: 0;
+            width: 26px; height: 26px;
+            border-radius: 50%;
+            background: rgba(125,93,230,.15);
+            border: 1px solid rgba(125,93,230,.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--primary-light);
+            font-family: 'Space Grotesk', sans-serif;
+            margin-top: 2px;
+        }
+        .methodology-list li strong { color: var(--text-1); }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+            margin-top: 4px;
+        }
+        .tool-pill {
+            background: var(--surface-3);
+            border: 1px solid var(--border);
+            border-radius: var(--r-md);
+            padding: 10px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-1);
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+        .tool-pill .tool-use {
+            font-size: 11px;
+            font-weight: 400;
+            color: var(--text-2);
+        }
+
+        .scores-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .scores-table th {
+            text-align: left;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0 0 12px;
+        }
+        .scores-table th:last-child { text-align: right; }
+        .scores-table td {
+            padding: 10px 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-2);
+            vertical-align: middle;
+        }
+        .scores-table td:last-child {
+            text-align: right;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .scores-table tr.total-row td {
+            color: var(--text-1);
+            font-weight: 700;
+            font-size: 15px;
+            border-top: 2px solid var(--border-hi);
+        }
+        .score-bar-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .score-bar {
+            flex: 1;
+            height: 4px;
+            background: var(--surface-3);
+            border-radius: 2px;
+            overflow: hidden;
+            max-width: 120px;
+        }
+        .score-bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
+        }
+
+        .cert-image-block {
+            margin-top: 4px;
+            border-radius: var(--r-lg);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .cert-image-block img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .cert-id-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 14px;
+            padding: 12px 16px;
+            background: var(--surface-3);
+            border-radius: var(--r-md);
+            border: 1px solid var(--border);
+        }
+        .cert-id-row .cert-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-2);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .cert-id-row .cert-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary-light);
+            font-family: 'Consolas', monospace;
+            letter-spacing: 0.05em;
+        }
+
+        .domain-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            background: rgba(125,93,230,.12);
+            border: 1px solid rgba(125,93,230,.25);
+            color: var(--primary-light);
+            letter-spacing: 0.04em;
+        }
+
+        @media (max-width: 600px) {
+            .ejpt-meta-divider { display: none; }
+            .ejpt-meta-row { gap: 16px; }
+            .tools-grid { grid-template-columns: 1fr 1fr; }
+            .score-bar { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="index.html" class="site-title">
+                <img src="img/myLogoCropped.png" alt="SOFLAKY">
+            </a>
+        </div>
+        <nav>
+            <div class="menu-btn" id="menu-btn">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul id="nav-links" class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="writeups.html">Writeups</a></li>
+                <li><a href="index.html#contact" class="contact-btn">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="back-button-container">
+            <a href="writeups.html" class="back-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </a>
+        </div>
+
+        <article class="writeup-container">
+
+            <header class="writeup-header">
+                <div class="ejpt-score-badge">
+                    <span class="dot"></span>
+                    INE Security — Certification Exam
+                </div>
+                <h1>eJPT Exam Writeup</h1>
+                <p style="color:var(--text-2);font-size:15px;margin-top:8px;">Junior Penetration Tester &nbsp;·&nbsp; June 2026 &nbsp;·&nbsp; Mahmoud Elganzory</p>
+                <div class="ejpt-meta-row">
+                    <div class="ejpt-meta-item">
+                        <span class="value">91%</span>
+                        <span class="label">Final Score</span>
+                    </div>
+                    <div class="ejpt-meta-divider"></div>
+                    <div class="ejpt-meta-item">
+                        <span class="value">4.5h</span>
+                        <span class="label">Time Taken</span>
+                    </div>
+                    <div class="ejpt-meta-divider"></div>
+                    <div class="ejpt-meta-item">
+                        <span class="value">45</span>
+                        <span class="label">Questions</span>
+                    </div>
+                    <div class="ejpt-meta-divider"></div>
+                    <div class="ejpt-meta-item">
+                        <span class="value">48h</span>
+                        <span class="label">Time Limit</span>
+                    </div>
+                </div>
+            </header>
+
+            <section class="writeup-content">
+
+                <!-- OVERVIEW -->
+                <div class="section">
+                    <h2>Overview</h2>
+                    <p>The eJPT (Junior Penetration Tester) is a practical, entry-level penetration testing certification offered by INE Security. Unlike traditional multiple choice exams, the eJPT places you inside a real lab environment where you are expected to perform a full penetration test against a network of machines and answer questions based on your findings.</p>
+                    <p>There is no way to guess your way through it — every answer requires real enumeration, exploitation, or post-exploitation work performed live against the target network.</p>
+                </div>
+
+                <!-- EXAM DOMAINS -->
+                <div class="section">
+                    <h2>Exam Domains</h2>
+                    <p>The 45-question exam is divided across four core domains:</p>
+                    <ul>
+                        <li><strong>Assessment Methodologies</strong> — Network enumeration, service identification, vulnerability research</li>
+                        <li><strong>Host &amp; Network Pentesting</strong> — Exploitation, pivoting, brute force, hash cracking</li>
+                        <li><strong>Web Application Pentesting</strong> — Web app enumeration, vulnerability identification, exploitation</li>
+                        <li><strong>Host &amp; Network Auditing</strong> — Post-exploitation, credential harvesting, file transfers</li>
+                    </ul>
+                </div>
+
+                <!-- PREPARATION -->
+                <div class="section">
+                    <h2>Preparation</h2>
+                    <p>I prepared through the INE Penetration Testing Student (PTS) course, which covers all topics tested in the exam. The course is well structured and provides enough hands-on labs to build the necessary skills before sitting the exam.</p>
+                    <p>Key areas I focused on:</p>
+                    <ul>
+                        <li>Network scanning and enumeration with Nmap</li>
+                        <li>Web application testing and CMS exploitation</li>
+                        <li>Metasploit Framework usage</li>
+                        <li>Pivoting and network routing through compromised hosts</li>
+                        <li>Password attacks and hash cracking</li>
+                        <li>Windows and Linux post-exploitation techniques</li>
+                    </ul>
+                </div>
+
+                <!-- METHODOLOGY -->
+                <div class="section">
+                    <h2>Exam Methodology</h2>
+                    <p>The environment simulates a real-world corporate network. I followed a structured, methodical approach rather than rushing into exploitation:</p>
+                    <ol class="methodology-list">
+                        <li>
+                            <span class="step-num">1</span>
+                            <span><strong>Reconnaissance</strong> — Host discovery across the target subnet to map all live hosts before touching anything.</span>
+                        </li>
+                        <li>
+                            <span class="step-num">2</span>
+                            <span><strong>Enumeration</strong> — Detailed service and version scans against every live host to identify running services, OS versions, and potential attack vectors.</span>
+                        </li>
+                        <li>
+                            <span class="step-num">3</span>
+                            <span><strong>Web Application Testing</strong> — Investigated all web services across the network, identifying CMS platforms, versions, and misconfigurations.</span>
+                        </li>
+                        <li>
+                            <span class="step-num">4</span>
+                            <span><strong>Exploitation</strong> — Used identified vulnerabilities to gain initial footholds on target systems.</span>
+                        </li>
+                        <li>
+                            <span class="step-num">5</span>
+                            <span><strong>Post-Exploitation</strong> — Enumerated compromised systems for credentials, sensitive files, and internal network information.</span>
+                        </li>
+                        <li>
+                            <span class="step-num">6</span>
+                            <span><strong>Pivoting</strong> — Routed traffic through a compromised dual-homed host to reach internal network segments and continue enumeration deeper into the network.</span>
+                        </li>
+                        <li>
+                            <span class="step-num">7</span>
+                            <span><strong>Privilege Escalation</strong> — Escalated privileges on both Linux and Windows hosts to achieve full system access.</span>
+                        </li>
+                        <li>
+                            <span class="step-num">8</span>
+                            <span><strong>Flag Retrieval</strong> — Collected dynamic flags from compromised systems as direct proof of access for each exam question.</span>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- TOOLS -->
+                <div class="section">
+                    <h2>Tools Used</h2>
+                    <div class="tools-grid">
+                        <div class="tool-pill">
+                            Nmap
+                            <span class="tool-use">Network discovery &amp; enumeration</span>
+                        </div>
+                        <div class="tool-pill">
+                            Metasploit
+                            <span class="tool-use">Exploitation &amp; post-exploitation</span>
+                        </div>
+                        <div class="tool-pill">
+                            WPScan
+                            <span class="tool-use">WordPress enumeration &amp; brute force</span>
+                        </div>
+                        <div class="tool-pill">
+                            Hydra
+                            <span class="tool-use">Credential brute forcing (SMB / SSH)</span>
+                        </div>
+                        <div class="tool-pill">
+                            John / Hashcat
+                            <span class="tool-use">Password hash cracking</span>
+                        </div>
+                        <div class="tool-pill">
+                            enum4linux
+                            <span class="tool-use">SMB enumeration</span>
+                        </div>
+                        <div class="tool-pill">
+                            FTP / curl
+                            <span class="tool-use">Manual service &amp; web interaction</span>
+                        </div>
+                        <div class="tool-pill">
+                            xfreerdp
+                            <span class="tool-use">Remote desktop to Windows targets</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RESULTS -->
+                <div class="section">
+                    <h2>Domain Results</h2>
+                    <table class="scores-table">
+                        <thead>
+                            <tr>
+                                <th>Domain</th>
+                                <th></th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="domain-tag">Assessment Methodologies</span></td>
+                                <td>
+                                    <div class="score-bar-wrap">
+                                        <div class="score-bar"><div class="score-bar-fill" style="width:94%"></div></div>
+                                    </div>
+                                </td>
+                                <td>94%</td>
+                            </tr>
+                            <tr>
+                                <td><span class="domain-tag">Host &amp; Network Pentesting</span></td>
+                                <td>
+                                    <div class="score-bar-wrap">
+                                        <div class="score-bar"><div class="score-bar-fill" style="width:80%"></div></div>
+                                    </div>
+                                </td>
+                                <td>80%</td>
+                            </tr>
+                            <tr>
+                                <td><span class="domain-tag">Web Application Pentesting</span></td>
+                                <td>
+                                    <div class="score-bar-wrap">
+                                        <div class="score-bar"><div class="score-bar-fill" style="width:100%"></div></div>
+                                    </div>
+                                </td>
+                                <td>100%</td>
+                            </tr>
+                            <tr>
+                                <td><span class="domain-tag">Host &amp; Network Auditing</span></td>
+                                <td>
+                                    <div class="score-bar-wrap">
+                                        <div class="score-bar"><div class="score-bar-fill" style="width:90%"></div></div>
+                                    </div>
+                                </td>
+                                <td>90%</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td>Overall</td>
+                                <td>
+                                    <div class="score-bar-wrap">
+                                        <div class="score-bar"><div class="score-bar-fill" style="width:91%"></div></div>
+                                    </div>
+                                </td>
+                                <td>91%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- CERTIFICATE -->
+                <div class="section">
+                    <h2>Certificate</h2>
+                    <div class="cert-image-block">
+                        <img src="img/ejpt.png" alt="eJPT Certification — Mahmoud Elganzory">
+                    </div>
+                    <div class="cert-id-row">
+                        <span class="cert-label">Certification ID</span>
+                        <span class="cert-value">185267528</span>
+                    </div>
+                </div>
+
+                <!-- THOUGHTS -->
+                <div class="section">
+                    <h2>Thoughts</h2>
+                    <p>The eJPT is a solid entry-level certification for anyone getting into offensive security. It tests real skills in a real environment, and the 70% pass threshold is fair while still requiring genuine effort and practical understanding.</p>
+                    <p>The exam rewards a methodical approach. Rushing into exploitation without proper enumeration will leave gaps. Taking time to fully map the network before attacking anything makes the whole process smoother and faster — not slower.</p>
+                    <p>For anyone considering it, complete the INE PTS course first, get comfortable with Metasploit, and practice basic pivoting techniques before sitting the exam. If you put in that work, passing is straightforward.</p>
+                </div>
+
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Mahmoud — SOFLAKY</p>
+        <div class="footer-links">
+            <a href="writeups.html">← Writeups</a>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const navLinks = document.getElementById('nav-links');
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

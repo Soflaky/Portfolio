@@ -3,265 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOFLAKY - Christmas GIFt Writeup</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0c0c0c;
-            color: #fff;
-            line-height: 1.6;
-        }
-
-         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 2rem;
-            background: #0c0c0c;
-            border-bottom: 1px solid #2a2a2a;
-        }
-
-        .logo {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-
-       nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-
-        nav a:hover {
-            background-color: #7D5DE6;
-        }
-
-
-        .writeup-container {
-            max-width: 800px;
-            margin: 7rem auto 4rem;
-            padding: 0 1.5rem;
-        }
-
-        .title-section {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-.title-section h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    background: linear-gradient(45deg, #7D5DE6, #9B7BFF);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-@media (max-width: 768px) {
-    .title-section h1 {
-        font-size: 2rem;
-    }
-}
-        .challenge-meta {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-
-        .category {
-            background: #7D5DE6;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-weight: 500;
-        }
-
-        .diff {
-            color: #FFC600;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .writeup-content {
-            background: #1a1a1a;
-            border-radius: 12px;
-            padding: 2.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .section {
-            margin-bottom: 2.5rem;
-        }
-
-        .section:last-child {
-            margin-bottom: 0;
-        }
-
-        .section h2 {
-            color: #7D5DE6;
-            margin-bottom: 1.2rem;
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-        .challenge-files {
-            margin-top: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .challenge-files h2 {
-            color: #7D5DE6;
-            font-size: 1.5rem;
-        }
-
-        .challenge-files ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .challenge-files li {
-            margin-bottom: 10px;
-        }
-
-        .challenge-files a {
-            color: #7D5DE6;
-            text-decoration: none;
-            padding: 5px;
-            background: #333;
-            border-radius: 5px;
-            transition: background 0.3s;
-        }
-
-        .challenge-files a:hover {
-            background: #5e3dbf;
-        }
-
-        .flag {
-            display: inline-block;
-            background: #2a2a2a;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            font-family: 'Fira Code', monospace;
-            font-size: 1.1rem;
-            border: 1px solid #3a3a3a;
-        }
-
-        ol {
-            padding-left: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        ol li {
-            margin-bottom: 0.8rem;
-        }
-
-        .result-image {
-            margin-top: 1.5rem;
-        }
-
-        img {
-            width: 100%;
-            border-radius: 8px;
-            transition: transform 0.3s ease;
-        }
-
-        img:hover {
-            transform: scale(1.02);
-        }
-
-        ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        ul li {
-            margin-bottom: 0.5rem;
-            padding-left: 1.2rem;
-            position: relative;
-        }
-
-        ul li::before {
-            content: "•";
-            color: #7D5DE6;
-            position: absolute;
-            left: 0;
-        }
-
-        .tips {
-            background: #2a2a2a;
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-
-        .tips h3 {
-            color: #7D5DE6;
-            margin-bottom: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .writeup-container {
-                margin-top: 5rem;
-            }
-
-            .writeup-header h1 {
-                font-size: 2rem;
-            }
-
-            .writeup-content {
-                padding: 1.5rem;
-            }
-        }
-    </style>
+    <title>SOFLAKY — Christmas GIFt Writeup</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <header>
-        <a href="index.html" class="logo">SOFLAKY</a>
+        <div class="logo">
+            <a href="index.html" class="site-title">
+                <img src="img/myLogoCropped.png" alt="SOFLAKY">
+            </a>
+        </div>
         <nav>
-            <ul>
+            <div class="menu-btn" id="menu-btn">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul id="nav-links" class="nav-links">
                 <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
                 <li><a href="writeups.html">Writeups</a></li>
+                <li><a href="index.html#contact" class="contact-btn">Contact</a></li>
             </ul>
         </nav>
     </header>
     <main>
+        <div class="back-button-container">
+            <a href="wargames.html" class="back-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </a>
+        </div>
         <article class="writeup-container">
-            <div class="section title-section">
-    <h1>Christmas GIFt</h1>
-    <div class="challenge-meta">
-        <span class="category">MISC</span>
-        <span class="diff">Easy</span>
-    </div>
-</div>
+            <div class="title-section">
+                <h1>Christmas GIFt</h1>
+                <div class="challenge-meta">
+                    <span class="category">MISC</span>
+                    <span class="diff">Easy</span>
+                </div>
+            </div>
             <section class="writeup-content">
                 <div class="section">
                     <h2>Description</h2>
                     <p>Here is your christmas GIFt from santa! Just open and wait for it..</p>
                 </div>
-                 <section class="challenge-files">
+
+                <section class="challenge-files section">
                     <h2>Challenge Files</h2>
-                    
-                        <a href="https://2007.filemail.com/api/file/get?filekey=Ud8JxkwyXFXhJiPvfHxh3heFCpnxq-v6GDO0udE0dKiZ69W_9pdqx37qBdjxQw&pk_vid=32371d526c0715381735399110fffce9" download="gift.gif">Download gift.gif</a>
-                        
-                    
+                    <ul>
+                        <li><a href="https://2007.filemail.com/api/file/get?filekey=Ud8JxkwyXFXhJiPvfHxh3heFCpnxq-v6GDO0udE0dKiZ69W_9pdqx37qBdjxQw&pk_vid=32371d526c0715381735399110fffce9" download="gift.gif">gift.gif</a></li>
+                    </ul>
                 </section>
+
                 <div class="section">
                     <h2>Solution</h2>
                     <ol>
@@ -283,7 +77,6 @@
                         <li><strong>Flag Discovery:</strong>
                             <ol>
                                 <li>Found in frame 1402: Image of a present with the flag visible</li>
-                                <li>Flag format: wgmy{1eaa6da7b7f5df6f7c0381c8f23af4d3}</li>
                                 <li>Flag was clearly visible in plain text on the final frame</li>
                             </ol>
                             <div class="result-image">
@@ -303,7 +96,7 @@
                     <h2>Key Takeaways</h2>
                     <ul>
                         <li>Always check all frames in a GIF file</li>
-                        <li>Pay attention to challenge descriptions - "wait for it" was a hint</li>
+                        <li>Pay attention to challenge descriptions — "wait for it" was a hint</li>
                         <li>Sometimes the simplest solution (checking the last frame) is correct</li>
                         <li>The capitalization in "GIFt" was a subtle hint about GIF analysis</li>
                     </ul>
@@ -313,7 +106,7 @@
                             <li>Check beginning and end frames of GIFs</li>
                             <li>Use frame browsing tools for animated files</li>
                             <li>Pay attention to challenge names and descriptions for hints</li>
-                            <li>Don't overcomplicate the solution - sometimes flags are hidden in plain sight</li>
+                            <li>Don't overcomplicate the solution — sometimes flags are hidden in plain sight</li>
                         </ul>
                     </div>
                 </div>
@@ -324,5 +117,18 @@
             </section>
         </article>
     </main>
+
+    <footer>
+        <p>&copy; 2025 Mahmoud — SOFLAKY</p>
+        <div class="footer-links">
+            <a href="wargames.html">← WarGames Malaysia 2024</a>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const navLinks = document.getElementById('nav-links');
+        menuBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+    </script>
 </body>
 </html>

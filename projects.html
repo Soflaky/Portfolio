@@ -3,93 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects</title>
+    <title>SOFLAKY — Projects</title>
     <link rel="stylesheet" href="css/styles.css">
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #0c0c0c;
-            color: #fff;
-        }
-
-        .projects-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: calc(100vh - 80px); /* Full height minus header */
-            padding-top: 40px;
-        }
-
-        .projects-header {
-            font-size: 36px;
-            font-weight: bold;
-            color: #7D5DE6;
-            margin-bottom: 40px;
-            text-align: center;
-        }
-        .projects-header:hover {
-            transform: scale(1.07);
-        }
-
-        .projects-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
-
-        .project-box {
-            width: 300px;
-            height: 300px;
-            margin: 20px;
-            background: #1c1c1c;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .project-box:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(125, 93, 230, 0.5);
-        }
-
-        .project-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #7D5DE6;
-        }
-
-        /* Media query for mobile screens */
-        @media (max-width: 768px) {
-            .project-box {
-                width: calc(50% - 40px); /* Adjust width to 50% minus the margins */
-            }
-        }
-
-        /* Media query for very small screens */
-        @media (max-width: 480px) {
-            .project-box {
-                width: calc(100% - 40px); /* Full width minus the margins for single column layout */
-            }
-
-            .projects-container {
-                flex-direction: column; /* Stack boxes vertically on very small screens */
-            }
-        }
-    </style>
 </head>
 <body>
+
     <header>
         <div class="logo">
             <a href="index.html" class="site-title">
-                <img src="img/myLogoCropped.png" alt="Logo">
+                <img src="img/myLogoCropped.png" alt="SOFLAKY">
             </a>
         </div>
         <nav>
@@ -101,30 +23,81 @@
             <ul id="nav-links" class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="writeups.html">Writeups</a></li>
+                <li><a href="index.html#contact" class="contact-btn">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <section class="projects-section">
-        <div class="projects-header">My Projects</div>
-        <div class="projects-container">
-            <div class="project-box" onclick="window.location.href='file-type-detection.html'">
-                <div class="project-title">File Type Detection</div>
+    <main>
+        <section class="projects-section">
+            <div class="projects-header">
+                <span class="section-label">Work</span>
+                <h1 class="gradient-text">Projects</h1>
+                <p>Tools I've built — mostly for learning, fun, and CTF challenges.</p>
             </div>
-            <div class="project-box" onclick="window.location.href='encryption-decryption.html'">
-                <div class="project-title">Encryption & Decryption</div>
-            </div>
-            <div class="project-box" onclick="window.location.href='steganography.html'">
-                <div class="project-title">Steganography Tool</div>
-            </div>
-        </div>
-    </section>
-    <script src="js/scripts.js"></script>
-    <script> const menuBtn = document.getElementById('menu-btn');
-        const navLinks = document.getElementById('nav-links');
 
+            <div class="projects-grid">
+
+                <div class="project-box" onclick="window.location.href='file-type-detection.html'">
+                    <div class="project-icon">🔍</div>
+                    <div class="project-title">File Type Detection</div>
+                    <div class="project-desc">Upload any file and instantly identify its type and size using magic bytes and MIME type detection. Supports JPEG, PNG, PDF, ZIP, ELF, and more.</div>
+                    <div class="project-footer">
+                        <div class="project-tags">
+                            <span class="project-tag">JavaScript</span>
+                            <span class="project-tag">Web Tool</span>
+                        </div>
+                        <span class="project-arrow">↗</span>
+                    </div>
+                </div>
+
+                <div class="project-box" onclick="window.location.href='encryption-decryption.html'">
+                    <div class="project-icon">🔐</div>
+                    <div class="project-title">Encryption & Decryption</div>
+                    <div class="project-desc">Encode, decode, and transform text across multiple formats — Base64, Hex, Hexdump, URL encoding, ROT13, Entropy analysis, and more.</div>
+                    <div class="project-footer">
+                        <div class="project-tags">
+                            <span class="project-tag">JavaScript</span>
+                            <span class="project-tag">Cryptography</span>
+                            <span class="project-tag">CTF</span>
+                        </div>
+                        <span class="project-arrow">↗</span>
+                    </div>
+                </div>
+
+                <div class="project-box" onclick="window.location.href='steganography.html'">
+                    <div class="project-icon">🖼️</div>
+                    <div class="project-title">Steganography Tool</div>
+                    <div class="project-desc">Analyze and manipulate image files to find or embed hidden data. A useful tool for CTF steganography challenges.</div>
+                    <div class="project-footer">
+                        <div class="project-tags">
+                            <span class="project-tag">JavaScript</span>
+                            <span class="project-tag">Steganography</span>
+                            <span class="project-tag">CTF</span>
+                        </div>
+                        <span class="project-arrow">↗</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Mahmoud — SOFLAKY</p>
+        <div class="footer-links">
+            <a href="index.html">← Home</a>
+        </div>
+    </footer>
+
+    <script src="js/scripts.js"></script>
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const navLinks = document.getElementById('nav-links');
         menuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
-        });</script>
+        });
+    </script>
+
 </body>
 </html>

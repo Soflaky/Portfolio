@@ -3,137 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOFLAKY - Writeups</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #0c0c0c;
-            color: #fff;
-            line-height: 1.6;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 2rem;
-            background: #0c0c0c;
-            border-bottom: 1px solid #2a2a2a;
-        }
-
-        .logo {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-
-        nav a:hover {
-            background-color: #7D5DE6;
-        }
-
-        .writeups-container {
-            max-width: 800px;
-            margin: 4rem auto;
-            padding: 0 1rem;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .ctf-card {
-            background: #1a1a1a;
-            border-radius: 10px;
-            padding: 2rem;
-            margin-top: 2rem;
-            transition: transform 0.3s;
-        }
-
-        .ctf-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .ctf-card h2 {
-            margin-bottom: 1rem;
-        }
-
-        .view-btn {
-            display: inline-block;
-            background: #7D5DE6;
-            color: #fff;
-            text-decoration: none;
-            padding: 0.8rem 2rem;
-            border-radius: 25px;
-            margin-top: 1.5rem;
-            transition: background-color 0.3s;
-        }
-
-        .view-btn:hover {
-            background: #6247c2;
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: 1rem;
-            }
-            
-            .writeups-container {
-                margin: 2rem auto;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+    <title>SOFLAKY — Writeups</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+
     <header>
-        <a href="index.html" class="logo">SOFLAKY</a>
+        <div class="logo">
+            <a href="index.html" class="site-title">
+                <img src="img/myLogoCropped.png" alt="SOFLAKY">
+            </a>
+        </div>
         <nav>
-            <ul>
+            <div class="menu-btn" id="menu-btn">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul id="nav-links" class="nav-links">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="writeups.html">Writeups</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li><a href="index.html#contact" class="contact-btn">Contact</a></li>
             </ul>
         </nav>
     </header>
+
     <main>
-        <section class="writeups-container">
-            <h1>Writeups</h1>
-            <div class="ctf-card">
-                <h2>WarGames Malaysia 2024</h2>
-                <p>A national-level cybersecurity competition testing various security concepts and techniques.</p>
-                <a href="wargames.html" class="view-btn">View Writeups</a>
+        <section class="writeups-page">
+            <div class="writeups-page-header">
+                <span class="section-label">CTF Writeups</span>
+                <h1 class="gradient-text">Writeups</h1>
+                <p>My solutions and approaches to CTF challenges.</p>
             </div>
-            <div class="ctf-card">
-                <h2>CyberNights 2025</h2>
-                <p>Ramadan CTF Challenge</p>
-                <a href="cyberNights1.html" class="view-btn">View Writeups</a>
+
+            <div class="writeups-grid">
+
+                <div class="ctf-card">
+                    <h2>WarGames Malaysia 2024</h2>
+                    <p>A national-level cybersecurity competition testing various security concepts and techniques. Finished 11th place overall.</p>
+                    <a href="wargames.html" class="view-btn">View Writeups ↗</a>
+                </div>
+
+                <div class="ctf-card">
+                    <h2>CyberNights 2025</h2>
+                    <p>Ramadan CTF Challenge — a multi-discipline competition covering web, crypto, forensics and more. Reached the finals.</p>
+                    <a href="cyberNights1.html" class="view-btn">View Writeups ↗</a>
+                </div>
+
+                <div class="ctf-card" style="border-color: rgba(125,93,230,.35); background: linear-gradient(135deg, var(--surface-1) 60%, rgba(125,93,230,.06) 100%);">
+                    <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                        <span style="font-size:11px; font-weight:700; color:var(--primary-light); text-transform:uppercase; letter-spacing:.1em; background:rgba(125,93,230,.13); border:1px solid rgba(125,93,230,.3); border-radius:100px; padding:3px 10px;">Certification</span>
+                        <span style="font-size:11px; font-weight:700; color:var(--text-2);">INE Security</span>
+                    </div>
+                    <h2>eJPT Exam Writeup</h2>
+                    <p>Junior Penetration Tester certification — a practical, lab-based exam requiring real exploitation and enumeration. Scored <strong style="color:var(--primary-light);">91%</strong> in 4.5 hours.</p>
+                    <a href="ejpt.html" class="view-btn">Read Writeup ↗</a>
+                </div>
+
             </div>
         </section>
     </main>
+
+    <footer>
+        <p>&copy; 2025 Mahmoud — SOFLAKY</p>
+        <div class="footer-links">
+            <a href="index.html">← Home</a>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const navLinks = document.getElementById('nav-links');
+        menuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+
 </body>
 </html>

@@ -3,188 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOFLAKY - Escaper Writeup</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #0c0c0c;
-            color: #fff;
-            line-height: 1.6;
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 2rem;
-            background: #0c0c0c;
-            border-bottom: 1px solid #2a2a2a;
-        }
-
-        .logo {
-            color: #fff;
-            text-decoration: none;
-            font-size: 1.5rem;
-            font-weight: bold;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-
-        nav a:hover {
-            background-color: #7D5DE6;
-        }
-        .back-button-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 1rem;
-}
-
-.back-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    background-color: #2a2a2a;
-    padding: 0.8rem;
-    border-radius: 50%;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    width: 40px;
-    height: 40px;
-}
-
-.back-button:hover {
-    background-color: #7D5DE6;
-    transform: translateX(-3px);
-}
-
-.back-button svg {
-    width: 20px;
-    height: 20px;
-}
-        .writeup-container {
-            max-width: 800px;
-            margin: 4rem auto;
-            padding: 0 1rem;
-        }
-
-        .writeup-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .writeup-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .challenge-meta {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        .category {
-            background: #7D5DE6;
-            padding: 0.3rem 0.8rem;
-            border-radius: 15px;
-        }
-
-        .diff {
-            color: #FFC600;
-            font-weight: bold;
-        }
-
-        .writeup-content {
-            background: #1a1a1a;
-            border-radius: 10px;
-            padding: 2rem;
-        }
-
-        .section {
-            margin-bottom: 2rem;
-        }
-
-        .section:last-child {
-            margin-bottom: 0;
-        }
-
-        .section h2 {
-            color: #7D5DE6;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .flag {
-            display: inline-block;
-            background: #2a2a2a;
-            padding: 1rem;
-            border-radius: 5px;
-            font-family: monospace;
-            font-size: 1.1rem;
-        }
-
-        code {
-            display: block;
-            background: #2a2a2a;
-            padding: 1rem;
-            border-radius: 5px;
-            font-family: monospace;
-            margin: 1rem 0;
-            overflow-x: auto;
-        }
-
-        @media (max-width: 768px) {
-            .writeup-container {
-                margin: 2rem auto;
-            }
-            
-            .writeup-header h1 {
-                font-size: 2rem;
-            }
-            
-            .writeup-content {
-                padding: 1.5rem;
-            }
-        }
-    </style>
+    <title>SOFLAKY — Escaper Writeup</title>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <header>
-        <a href="index.html" class="logo">SOFLAKY</a>
+        <div class="logo">
+            <a href="index.html" class="site-title">
+                <img src="img/myLogoCropped.png" alt="SOFLAKY">
+            </a>
+        </div>
         <nav>
-            <ul>
+            <div class="menu-btn" id="menu-btn">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <ul id="nav-links" class="nav-links">
                 <li><a href="index.html">Home</a></li>
+                <li><a href="projects.html">Projects</a></li>
                 <li><a href="writeups.html">Writeups</a></li>
+                <li><a href="index.html#contact" class="contact-btn">Contact</a></li>
             </ul>
         </nav>
     </header>
     <main>
         <div class="back-button-container">
-    <a href="cyberNights1.html" class="back-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-        </svg>
-    </a>
-</div>
+            <a href="cyberNights1.html" class="back-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+            </a>
+        </div>
         <article class="writeup-container">
             <header class="writeup-header">
                 <h1>Escaper</h1>
@@ -207,18 +57,21 @@
                 <div class="section">
                     <h2>Exploit</h2>
                     <p>Through testing different inputs, I discovered that the input field was vulnerable to command injection. I used the following payload to retrieve the flag:</p>
-                    
-                    <code>sth -or -exec cat ../flag.txt ; -quit</code>
-                    
+
+                    <div class="code-container">
+                        <div class="code-bar">
+                            <span class="file-name">Payload</span>
+                        </div>
+                        <pre class="code">sth -or -exec cat ../flag.txt ; -quit</pre>
+                    </div>
+
                     <p>This worked because:</p>
-                    <ul style="margin-left: 2rem;">
+                    <ul>
                         <li>The application likely executed user input as part of a command-line operation.</li>
-                        <li>The <code style="display: inline; padding: 0.2rem; background: #333;">-or -exec</code> portion injected a new command (<code style="display: inline; padding: 0.2rem; background: #333;">cat ../flag.txt</code>) to read the flag file.</li>
-                        <li>The <code style="display: inline; padding: 0.2rem; background: #333;">-quit</code> ensured proper execution and clean exit.</li>
+                        <li>The <code class="inline">-or -exec</code> portion injected a new command (<code class="inline">cat ../flag.txt</code>) to read the flag file.</li>
+                        <li>The <code class="inline">-quit</code> ensured proper execution and clean exit.</li>
                     </ul>
                 </div>
-
-            
 
                 <div class="section">
                     <h2>Flag</h2>
@@ -227,5 +80,18 @@
             </section>
         </article>
     </main>
+
+    <footer>
+        <p>&copy; 2025 Mahmoud — SOFLAKY</p>
+        <div class="footer-links">
+            <a href="cyberNights1.html">← CyberNights 2025</a>
+        </div>
+    </footer>
+
+    <script>
+        const menuBtn = document.getElementById('menu-btn');
+        const navLinks = document.getElementById('nav-links');
+        menuBtn.addEventListener('click', () => navLinks.classList.toggle('active'));
+    </script>
 </body>
 </html>

@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOFLAKY - Home</title>
+    <title>SOFLAKY — Portfolio</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">emailjs.init('o6TDtyur1m6hepoyL')</script>
 </head>
 <body>
+
     <header>
         <div class="logo">
             <a href="index.html" class="site-title">
-                <img src="img/myLogoCropped.png" alt="Logo">
+                <img src="img/myLogoCropped.png" alt="SOFLAKY">
             </a>
         </div>
         <nav>
-            
             <div class="menu-btn" id="menu-btn">
                 <div></div>
                 <div></div>
@@ -28,95 +30,164 @@
             </ul>
         </nav>
     </header>
+
     <main>
+
+        <!-- ── HERO ── -->
         <section id="hero" class="hero">
-            <div class="profile-container">
-                <img src="img/myLogo.jpg" alt="Profile Picture" class="profile-pic">
-            </div>
             <div class="intro">
-                <h1>Hey I'm Mahmoud</h1>
-                <p>I'm a Computer Science Student, CTF Player & I'm very passionate and dedicated to my work and studies</p>
+                <span class="eyebrow">CS Student &middot; CTF Player</span>
+                <h1 class="gradient-text">Hey, I'm<br>Mahmoud</h1>
+                <p>I'm passionate about computer science, cybersecurity, and building things that work. Always hunting for new challenges in CTF competitions and learning something new every day.</p>
                 <div class="buttons">
                     <a href="#about" class="btn">About Me</a>
-                    <a href="projects.html" class="btn">Projects</a>
+                    <a href="projects.html" class="btn btn-secondary">Projects</a>
                 </div>
             </div>
+            <div class="profile-container">
+                <img src="img/myLogo.jpg" alt="Mahmoud" class="profile-pic">
+            </div>
         </section>
+
+        <!-- ── ABOUT ── -->
         <section id="about" class="about">
             <div class="about-content">
                 <div class="about-text">
-                    <p><b>A second-year computer science student, I'm diving headfirst into my studies with excitement. Alongside my coursework, I'm also an enthusiastic CTF player, always looking for new challenges to tackle. I'm dedicated to both my academics and my passion for technology, striving to excel in both areas.</b></p>
-                    <br>
-                    <br>
-                    <span><b>Skills:</b> C++ | HTML | CSS | JS | SQL | LINUX</span>
+                    <span class="section-label">About Me</span>
+                    <h2>Building skills,<br>one challenge at a time</h2>
+                    <p>A third-year computer science student, I'm diving headfirst into my studies with excitement. Alongside my coursework, I'm an enthusiastic CTF player, always looking for new challenges to tackle. I'm dedicated to both my academics and my passion for technology, striving to excel in both areas.</p>
+                    <div class="skills-grid">
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">HTML</span>
+                        <span class="skill-tag">CSS</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Metasploit</span>
+                        <span class="skill-tag">Hydra</span>
+                        <span class="skill-tag">Nmap</span>
+                        <span class="skill-tag">Burp Suite</span>
+                        <span class="skill-tag">Wireshark</span>
+                        <span class="skill-tag">curl</span>
+                        <span class="skill-tag">John the Ripper</span>
+                        <span class="skill-tag">GoBuster</span>
+                        <span class="skill-tag">sqlmap</span>
+                        <span class="skill-tag">ExifTool</span>
+                        <span class="skill-tag">Problem Solving</span>
+                        <span class="skill-tag">Communication</span>
+                        <span class="skill-tag">Presentation</span>
+                        <span class="skill-tag">Leadership</span>
+                    </div>
                 </div>
                 <div class="about-image">
-                    <img src="img/myLogo.jpg" alt="About Me Picture" class="about-pic">
+                    <img src="img/myLogo.jpg" alt="Mahmoud" class="about-pic">
                 </div>
             </div>
         </section>
-     <section id="competitions" class="competitions">
-    <h2>Competitions</h2>
-    <div class="competitions-container">
-        <div class="competition-card">
-            <h3>CTF Camp</h3>
-            <p>Rank: 4th (April 2024)</p>
-        </div>
-        <div class="competition-card">
-            <h3>UTCTF 2024</h3>
-            <p>Rank: 100+ (March 2024)</p>
-        </div>
-        <div class="competition-card">
-            <h3>Web Applications Security 101(University)</h3>
-            <p>Rank: 1st (April 2024)</p>
-        </div>
-        <div class="competition-card">
-            <h3>BlackhatMEA 2024</h3>
-            <p>Rank: 114th (September 2024)</p>
-        </div>
-        <div class="competition-card">
-            <h3>Wargames Malaysia 2024</h3>
-            <p>Rank: 11th (December 2024)</p>
-        </div>
-        <div class="competition-card">
-            <h3>CyberNights 2025</h3>
-            <p>Finalist (March 2025)</p>
-        </div>
-    </div>
-</section>
-        <section id="contact" class="contact">
-            <div class="contact-header">
-                <a href="https://github.com/Soflaky" target="_blank" class="social-icon">
-                    <img src="img/github-icon.png" alt="GitHub">
-                </a>
-                <h2>Contact Me</h2>
-                <a href="https://twitter.com/TheSoFlaKy" target="_blank" class="social-icon">
-                    <img src="img/x-icon.png" alt="Twitter">
-                </a>
+
+        <!-- ── COMPETITIONS ── -->
+        <section id="competitions" class="competitions">
+            <div class="competitions-inner">
+                <span class="section-label">Achievements</span>
+                <h2>CTF Competitions</h2>
+                <p class="section-desc">A record of my competitive cybersecurity journey.</p>
+
+                <div class="competitions-container">
+
+                    <div class="competition-card">
+                        <h3>CTF Camp</h3>
+                        <div class="comp-rank great">4th Place</div>
+                        <div class="comp-date">April 2024</div>
+                    </div>
+
+                    <div class="competition-card">
+                        <h3>Web Applications Security 101</h3>
+                        <div class="comp-rank gold">1st Place</div>
+                        <div class="comp-date">University &middot; April 2024</div>
+                    </div>
+
+                    <div class="competition-card">
+                        <h3>Wargames Malaysia 2024</h3>
+                        <div class="comp-rank great">11th Place</div>
+                        <div class="comp-date">December 2024</div>
+                    </div>
+
+                    <div class="competition-card">
+                        <h3>CyberNights 2025</h3>
+                        <div class="comp-rank great">Finalist</div>
+                        <div class="comp-date">March 2025 · Ramadan CTF</div>
+                    </div>
+
+                    <div class="competition-card">
+                        <h3>BlackhatMEA 2024</h3>
+                        <div class="comp-rank">114th Place</div>
+                        <div class="comp-date">September 2024</div>
+                    </div>
+
+                    <div class="competition-card">
+                        <h3>UTCTF 2024</h3>
+                        <div class="comp-rank">Top 100+</div>
+                        <div class="comp-date">March 2024</div>
+                    </div>
+
+                </div>
             </div>
-            <form id="form">
-                <input name="from_name" id="from_name" type="text" class="feedback-input" placeholder="Name" required>
-                <input name="email_id" id="email_id" type="email" class="feedback-input" placeholder="Email" required>
-                <textarea name="message" id="message" class="feedback-input" placeholder="Message" required></textarea>
-                <input id="button" type="submit" value="Send">
-            </form>
         </section>
+
+        <!-- ── CONTACT ── -->
+        <section id="contact" class="contact">
+            <div class="contact-wrapper">
+                <span class="section-label">Contact</span>
+                <h2 class="contact-title">Let's connect</h2>
+                <p class="contact-desc">Have a question or want to work together? Drop me a message.</p>
+
+                <div class="social-links">
+                    <a href="https://github.com/Soflaky" target="_blank" class="social-link">
+                        <img src="img/github-icon.png" alt="GitHub">
+                        GitHub
+                    </a>
+                    <a href="https://twitter.com/TheSoFlaKy" target="_blank" class="social-link">
+                        <img src="img/x-icon.png" alt="Twitter / X">
+                        Twitter
+                    </a>
+                </div>
+
+                <form id="form" class="contact-form">
+                    <div class="form-group">
+                        <label class="form-label" for="from_name">Name</label>
+                        <input name="from_name" id="from_name" type="text" class="feedback-input" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email_id">Email</label>
+                        <input name="email_id" id="email_id" type="email" class="feedback-input" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="message">Message</label>
+                        <textarea name="message" id="message" class="feedback-input" placeholder="What's on your mind?" required></textarea>
+                    </div>
+                    <input id="button" type="submit" value="Send Message">
+                </form>
+            </div>
+        </section>
+
     </main>
+
+    <footer>
+        <p>&copy; 2025 Mahmoud — SOFLAKY</p>
+        <div class="footer-links">
+            <a href="https://github.com/Soflaky" target="_blank">GitHub</a>
+            <a href="https://twitter.com/TheSoFlaKy" target="_blank">Twitter</a>
+        </div>
+    </footer>
+
     <script src="js/scripts.js"></script>
     <script>
         const menuBtn = document.getElementById('menu-btn');
         const navLinks = document.getElementById('nav-links');
-
         menuBtn.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
     </script>
-    <script type="text/javascript"
-    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  
-  <script type="text/javascript">
-    emailjs.init('o6TDtyur1m6hepoyL')
-  </script>
 
 </body>
 </html>
